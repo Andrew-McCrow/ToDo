@@ -35,3 +35,31 @@
     </div>
 </body>
 </html>
+
+<!-- Modal for adding new project -->
+<dialog id="new-project-modal">
+    <form id="new-project-form" method="dialog">
+        <h2>Add a New Project</h2>
+        <label for="project-name">Project Name:</label>
+        <input type="text" id="project-name" name="project-name" required>
+
+        <div class="modal-actions">
+            <button type="submit" id="add-project-button">Add Project</button>
+            <button type="button" id="cancel-button">Cancel</button>
+        </div>
+    </form>
+</dialog>
+
+<!-- Modal for adding new to-do item -->
+ <dialog id="new-todo-modal">
+    <form id="new-todo-form" method="dialog">
+        <h2>Add a New To Do Item</h2>
+        <label for="todo-name">To Do Item Name:</label>
+        <input type="text" id="todo-name" name="todo-name" required>
+
+        <div class="modal-actions">
+            <button type="submit" id="add-todo-item-button">Add To Do Item</button>
+            <button type="button" id="cancel-button">Cancel</button>
+        </div>
+    </form>
+</dialog>
