@@ -74,16 +74,78 @@ ul {
     list-style: none;
 }
 
-li {
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+/* Project Container Styles */
+.project-container {
+    background-color: #f8f9fa;
+    border-left: 4px solid #007bff;
+    padding: 12px;
+    margin-bottom: 12px;
     border-radius: 4px;
+    transition: all 0.2s ease;
 }
 
-li:hover {
+.project-container:hover {
+    background-color: #e7f0ff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.15);
+}
+
+.project-container h2 {
+    font-size: 16px;
+    margin: 0 0 8px 0;
+    color: #007bff;
+}
+
+.project-container ul {
+    margin: 0;
+    padding-left: 0;
+}
+
+.project-container li {
+    font-size: 13px;
+    padding: 6px 8px;
+    margin-bottom: 4px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    color: #555;
+}
+
+.project-container li:hover {
     background-color: #f0f0f0;
+}
+
+/* To-Do Item Container Styles */
+.todo-item-container {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.todo-item-container:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #007bff;
+}
+
+.todo-item-container h3 {
+    font-size: 18px;
+    margin: 0 0 8px 0;
+    color: #333;
+}
+
+.todo-item-container p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.todo-item-container p:first-of-type {
+    font-size: 13px;
+    color: #777;
+    font-style: italic;
 }
 
 footer {
