@@ -1,7 +1,7 @@
 import "./styles.css";
 import Project from "./modules/project.js";
 import ToDoItem from "./modules/toDoItem.js";
-import { displayProject, displayToDoItem } from "./modules/DOM.js";
+import { ProjectRenderer, ToDoItemRenderer } from "./modules/DOM.js";
 
 // Example usage:
 const myProject = new Project("My First Project");
@@ -20,8 +20,10 @@ task1.addChecklistItem("Buy Milk");
 task1.addChecklistItem("Buy Bread");
 task1.markChecklistItemCompleted(0);
 
-displayProject(myProject);
-displayToDoItem(task1);
+const projectRenderer = new ProjectRenderer();
+const toDoItemRenderer = new ToDoItemRenderer();
+projectRenderer.displayProject(myProject);    
+toDoItemRenderer.displayToDoItem(task1);
 
 // modal and form for adding new projects
 const projectModal = document.querySelector("#new-project-modal");  
@@ -34,7 +36,7 @@ projectForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const projectName = document.querySelector("#project-name").value;
   const newProject = new Project(projectName);
-  displayProject(newProject);
+  projectRenderer.displayProject(newProject);
   projectModal.close();
   projectForm.reset();
 });
@@ -60,7 +62,7 @@ toDoForm.addEventListener("submit", (e) => {
   const dueDate = document.querySelector("#todo-due-date").value;
   const priority = document.querySelector("#todo-priority").value;
   const newToDoItem = new ToDoItem(title, description, dueDate, priority);
-  displayToDoItem(newToDoItem);
+  toDoItemRenderer.displayToDoItem(newToDoItem);
   toDoModal.close();
   toDoForm.reset();
 });

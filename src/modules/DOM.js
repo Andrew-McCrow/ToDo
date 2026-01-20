@@ -1,47 +1,78 @@
-// Display a project in the DOM
-function displayProject(project) {
-  const projectContainer = document.createElement("div");
-  projectContainer.classList.add("project-container");
+// Display, update or remove a project in the DOM
+class ProjectRenderer {
+  displayProject(project) {
+    const projectContainer = document.createElement("div");
+    projectContainer.classList.add("project-container");
 
-  const projectTitle = document.createElement("h2");
-  projectTitle.textContent = project.name;
-  projectContainer.appendChild(projectTitle);
+    // create project title
+    const projectTitle = document.createElement("h2");
+    projectTitle.textContent = project.name;
+    projectContainer.appendChild(projectTitle);
 
-  const toDoList = document.createElement("ul");
-  project.toDoItems.forEach((item) => {
-    const listItem = document.createElement("li");
-    listItem.textContent = item.title;
-    toDoList.appendChild(listItem);
-  });
+    // create list of to-do items
+    const toDoList = document.createElement("ul");
+    project.toDoItems.forEach((item) => {
+      const listItem = document.createElement("li");
+      listItem.textContent = item.title;
+      toDoList.appendChild(listItem);
+    });
+    projectContainer.appendChild(toDoList);
 
-  projectContainer.appendChild(toDoList);
-  const projectList = document.querySelector("#project-list");
-  projectList.appendChild(projectContainer);
+    // add delete button for project
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete Project";
+    deleteBtn.className = "delete-button";
+    deleteBtn.addEventListener("click", () => {
+      projectContainer.remove();
+    });
+    projectContainer.appendChild(deleteBtn);
+
+    // append project container to main project list in DOM
+    const projectList = document.querySelector("#project-list");
+    projectList.appendChild(projectContainer);
+  }
+
+  updateProject(project) {
+    // Implement update logic here
+  }
 }
 
-// Display a to-do item in the DOM
-function displayToDoItem(toDoItem) {
-  const itemContainer = document.createElement("div");
-  itemContainer.classList.add("todo-item-container");
+// Display, update or remove a to-do item in the DOM
+class ToDoItemRenderer {
+    displayToDoItem(toDoItem) {
+    const itemContainer = document.createElement("div");
+    itemContainer.classList.add("todo-item-container");
 
-  const itemTitle = document.createElement("h3");
-  itemTitle.textContent = toDoItem.title;
-  itemContainer.appendChild(itemTitle);
+    // create to-do item details
+    const itemTitle = document.createElement("h3");
+    itemTitle.textContent = toDoItem.title;
+    itemContainer.appendChild(itemTitle);
 
-  const itemDescription = document.createElement("p");
-  itemDescription.textContent = toDoItem.description;
-  itemContainer.appendChild(itemDescription);
+    const itemDescription = document.createElement("p");
+    itemDescription.textContent = toDoItem.description;
+    itemContainer.appendChild(itemDescription);
 
-  const itemDueDate = document.createElement("p");
-  itemDueDate.textContent = `Due Date: ${toDoItem.dueDate}`;
-  itemContainer.appendChild(itemDueDate);
+    const itemDueDate = document.createElement("p");
+    itemDueDate.textContent = `Due Date: ${toDoItem.dueDate}`;
+    itemContainer.appendChild(itemDueDate);
 
-  const itemPriority = document.createElement("p");
-  itemPriority.textContent = `Priority: ${toDoItem.priority}`;
-  itemContainer.appendChild(itemPriority);
+    const itemPriority = document.createElement("p");
+    itemPriority.textContent = `Priority: ${toDoItem.priority}`;
+    itemContainer.appendChild(itemPriority);
 
-  const itemList = document.querySelector("#todo-list");
-  itemList.appendChild(itemContainer);
+    // add delete button for to-do item
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete To-Do Item";
+    deleteBtn.className = "delete-button";
+    deleteBtn.addEventListener("click", () => {
+      itemContainer.remove();
+    });
+    itemContainer.appendChild(deleteBtn);
+
+    // append to-do item container to main to-do list in DOM
+    const itemList = document.querySelector("#todo-list");
+    itemList.appendChild(itemContainer);
+  }
 }
 
-export { displayProject, displayToDoItem };
+export { ProjectRenderer, ToDoItemRenderer };
