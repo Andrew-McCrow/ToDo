@@ -54,8 +54,27 @@
  <dialog id="new-todo-modal">
     <form id="new-todo-form" method="dialog">
         <h2>Add a New To Do Item</h2>
+        
         <label for="todo-name">To Do Item Name:</label>
-        <input type="text" id="todo-name" name="todo-name" required>
+            <input type="text" id="todo-name" name="todo-name" required>
+        <label for="description">Description:</label>
+            <input type="text" id="todo-description" name="todo-description">
+        <label for="todo-due-date">Due Date:</label>
+            <input type="date" id="todo-due-date" name="todo-due-date">
+        <label for="todo-priority">Priority:</label>
+            <select id="todo-priority" name="todo-priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>       
+        <label for="notes">Notes: </label>
+            <textarea id="todo-notes" name="todo-notes"></textarea>
+        <label for="checklist">Checklist</label>
+            <textarea id="todo-checklist" name="todo-checklist" placeholder="Enter checklist items separated by commas"></textarea> 
+        <label for="project-assignment">Assign to Project:</label>
+            <select id="project-assignment" name="project-assignment">
+                <!-- Project options will be injected here -->
+            </select>
 
         <div class="modal-actions">
             <button type="submit" id="add-todo-item-button">Add To Do Item</button>
