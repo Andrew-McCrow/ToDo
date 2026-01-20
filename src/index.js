@@ -23,8 +23,52 @@ task1.markChecklistItemCompleted(0);
 displayProject(myProject);
 displayToDoItem(task1);
 
+// modal and form for adding new projects
+const projectModal = document.querySelector("#new-project-modal");  
+const closeBtn = document.querySelector("#cancel-project-button"); 
+closeBtn.addEventListener("click", () => {
+  projectModal.close();
+});
+const projectForm = document.querySelector("#new-project-form"); 
+projectForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const projectName = document.querySelector("#project-name").value;
+  const newProject = new Project(projectName);
+  displayProject(newProject);
+  projectModal.close();
+  projectForm.reset();
+});
+
 // Add event listener to "Add Project" button
 const projectBtn = document.querySelector("#add-project-btn");
 projectBtn.addEventListener("click", () => {
-  alert("Hello World");
+  projectModal.showModal();
 });
+
+// modal and form for adding new to-do items
+const toDoModal = document.querySelector("#new-todo-modal");  
+const toDoCloseBtn = document.querySelector("#cancel-todo-button"); 
+toDoCloseBtn.addEventListener("click", () => {
+  toDoModal.close();
+});
+
+const toDoForm = document.querySelector("#new-todo-form"); 
+toDoForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const title = document.querySelector("#todo-title").value;
+  const description = document.querySelector("#todo-description").value;
+  const dueDate = document.querySelector("#todo-due-date").value;
+  const priority = document.querySelector("#todo-priority").value;
+  const newToDoItem = new ToDoItem(title, description, dueDate, priority);
+  displayToDoItem(newToDoItem);
+  toDoModal.close();
+  toDoForm.reset();
+});
+
+// Add event listener to "Add To Do Item" button
+const toDoBtn = document.querySelector("#add-todo-btn");
+toDoBtn.addEventListener("click", () => {
+  toDoModal.showModal();
+}); 
+
+

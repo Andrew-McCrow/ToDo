@@ -208,3 +208,92 @@ footer {
 p {
     margin: 0;
 }
+
+/* Modal Styles */
+dialog {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  max-width: 500px;
+  width: 90%;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 22px;
+}
+
+/* Form Styles */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+input[type="text"],
+input[type="date"],
+textarea,
+select {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.modal-actions button {
+  flex: 1;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.modal-actions button[type="submit"] {
+  background-color: #28a745;
+}
+
+.modal-actions button[type="submit"]:hover {
+  background-color: #218838;
+}
+
+.modal-actions button[type="button"] {
+  background-color: #6c757d;
+}
+
+.modal-actions button[type="button"]:hover {
+  background-color: #5a6268;
+}

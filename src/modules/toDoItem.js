@@ -1,3 +1,4 @@
+// ToDoItem class - represents a single to-do item
 class ToDoItem {
   constructor(title, description, dueDate, priority, notes, checklist, project) {
     this.title = title;
