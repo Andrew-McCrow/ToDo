@@ -1,8 +1,9 @@
 // Display, update or remove a project in the DOM
 class ProjectRenderer {
   displayProject(project) {
-    const projectContainer = document.createElement("div");
+    const projectContainer = document.createElement("li");
     projectContainer.classList.add("project-container");
+    projectContainer.dataset.projectName = project.name; 
 
     // create project title
     const projectTitle = document.createElement("h2");
@@ -40,7 +41,7 @@ class ProjectRenderer {
 // Display, update or remove a to-do item in the DOM
 class ToDoItemRenderer {
     displayToDoItem(toDoItem) {
-    const itemContainer = document.createElement("div");
+    const itemContainer = document.createElement("li");
     itemContainer.classList.add("todo-item-container");
 
     // create to-do item details
@@ -60,6 +61,22 @@ class ToDoItemRenderer {
     itemPriority.textContent = `Priority: ${toDoItem.priority}`;
     itemContainer.appendChild(itemPriority);
 
+    const notes = document.createElement("p");
+    notes.textContent = `Notes: ${toDoItem.notes.join(", ")}`;
+    itemContainer.appendChild(notes);  
+
+    const checklist = document.createElement("ul");
+    toDoItem.checklist.forEach((checkItem) => {
+      const listItem = document.createElement("li");
+      listItem.textContent = `${checkItem.item} - ${checkItem.completed ? "Completed" : "Pending"}`;
+      checklist.appendChild(listItem);
+    });
+    itemContainer.appendChild(checklist);
+   
+    const toDoProject = document.createElement("p");
+    toDoProject.textContent = `Project: ${toDoItem.project ? toDoItem.project.name : "None"}`;
+    itemContainer.appendChild(toDoProject);
+
     // add delete button for to-do item
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete To-Do Item";
@@ -75,4 +92,18 @@ class ToDoItemRenderer {
   }
 }
 
-export { ProjectRenderer, ToDoItemRenderer };
+class ProjectListRenderer {
+  displayProjectList(projects) {
+    const projectListContainer = document.querySelector("#project-assignment");
+    projectListContainer.innerHTML = ""; // Clear existing list
+
+    projects.forEach((project) => {
+      const projectItem = document.createElement("option");
+      projectItem.textContent = project.name;
+      projectItem.value = project.name;
+      projectListContainer.appendChild(projectItem);
+    });
+  }
+}
+
+export { ProjectRenderer, ToDoItemRenderer, ProjectListRenderer };

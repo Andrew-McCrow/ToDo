@@ -1,76 +1,97 @@
 import "./styles.css";
 import Project from "./modules/project.js";
 import ToDoItem from "./modules/toDoItem.js";
-import { ProjectRenderer, ToDoItemRenderer } from "./modules/DOM.js";
+import { ProjectRenderer, ToDoItemRenderer, ProjectListRenderer } from "./modules/DOM.js";
 
-// Example usage:
-const myProject = new Project("My First Project");
-const task1 = new ToDoItem(
-  "Buy groceries",
-  "Milk, Bread, Eggs",
-  "2024-07-01",
-  "High",
-  [],
-  [],
-  myProject
-);
-myProject.addToDoItem(task1);
-task1.addNote("Remember to check for discounts.");
-task1.addChecklistItem("Buy Milk");
-task1.addChecklistItem("Buy Bread");
-task1.markChecklistItemCompleted(0);
+// Initialize application
+document.addEventListener("DOMContentLoaded", () => {
+// Global project list
+  const projectList = [];
 
-const projectRenderer = new ProjectRenderer();
-const toDoItemRenderer = new ToDoItemRenderer();
-projectRenderer.displayProject(myProject);    
-toDoItemRenderer.displayToDoItem(task1);
+  // Example usage:
+  // create a new project and to-do item
+  const myProject = new Project("My First Project");
 
-// modal and form for adding new projects
-const projectModal = document.querySelector("#new-project-modal");  
-const closeBtn = document.querySelector("#cancel-project-button"); 
-closeBtn.addEventListener("click", () => {
-  projectModal.close();
+  const task1 = new ToDoItem(
+    "Buy groceries",
+    "Milk, Bread, Eggs",
+    "2024-07-01",
+    "High",
+    [],
+    [],
+    myProject
+  );
+
+  // add project to global project list & render project list
+  const projectListRenderer = new ProjectListRenderer();
+  projectList.push(myProject);
+  projectListRenderer.displayProjectList(projectList);
+
+  // link to-do item to project
+  myProject.addToDoItem(task1);
+  task1.addNote("Remember to check for discounts.");
+  task1.addChecklistItem("Buy Milk");
+  task1.addChecklistItem("Buy Bread");
+  task1.addChecklistItem("Buy Eggs");
+  task1.markChecklistItemCompleted(0);
+
+  // Render project and to-do item in the DOM
+  const projectRenderer = new ProjectRenderer();
+  const toDoItemRenderer = new ToDoItemRenderer();
+  projectRenderer.displayProject(myProject);    
+  toDoItemRenderer.displayToDoItem(task1);
+
+  // modal and form for adding new projects
+  const projectModal = document.querySelector("#new-project-modal");  
+  const closeBtn = document.querySelector("#cancel-project-button"); 
+  closeBtn.addEventListener("click", () => {
+    projectModal.close();
+  });
+  const projectForm = document.querySelector("#new-project-form"); 
+  projectForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const projectName = document.querySelector("#project-name").value;
+    const newProject = new Project(projectName);
+    projectRenderer.displayProject(newProject);
+    projectModal.close();
+    projectForm.reset();
+    projectList.push(newProject); // add new project to global list
+    projectListRenderer.displayProjectList(projectList); // update project list in the DOM
+  });
+
+  // Add event listener to "Add Project" button
+  const projectBtn = document.querySelector("#add-project-btn");
+  projectBtn.addEventListener("click", () => {
+    projectModal.showModal();
+  });
+
+  // modal and form for adding new to-do items
+  const toDoModal = document.querySelector("#new-todo-modal");  
+  const toDoCloseBtn = document.querySelector("#cancel-todo-button"); 
+  toDoCloseBtn.addEventListener("click", () => {
+    toDoModal.close();
+  });
+
+  const toDoForm = document.querySelector("#new-todo-form"); 
+  toDoForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const title = document.querySelector("#todo-name").value;
+    const description = document.querySelector("#todo-description").value;
+    const dueDate = document.querySelector("#todo-due-date").value;
+    const priority = document.querySelector("#todo-priority").value;
+    const notes = document.querySelector("#todo-notes").value;
+    const checklist = document.querySelector("#todo-checklist").value.split(",").map(item => item.trim());  
+    const projectName = document.querySelector("#project-assignment").value;
+    const newToDoItem = new ToDoItem(title, description, dueDate, priority, notes, checklist, projectName);
+    toDoItemRenderer.displayToDoItem(newToDoItem);
+    toDoModal.close();
+    toDoForm.reset();
+  });
+
+  // Add event listener to "Add To Do Item" button
+  const toDoBtn = document.querySelector("#add-todo-btn");
+  toDoBtn.addEventListener("click", () => {
+    toDoModal.showModal();
+  }); 
+
 });
-const projectForm = document.querySelector("#new-project-form"); 
-projectForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const projectName = document.querySelector("#project-name").value;
-  const newProject = new Project(projectName);
-  projectRenderer.displayProject(newProject);
-  projectModal.close();
-  projectForm.reset();
-});
-
-// Add event listener to "Add Project" button
-const projectBtn = document.querySelector("#add-project-btn");
-projectBtn.addEventListener("click", () => {
-  projectModal.showModal();
-});
-
-// modal and form for adding new to-do items
-const toDoModal = document.querySelector("#new-todo-modal");  
-const toDoCloseBtn = document.querySelector("#cancel-todo-button"); 
-toDoCloseBtn.addEventListener("click", () => {
-  toDoModal.close();
-});
-
-const toDoForm = document.querySelector("#new-todo-form"); 
-toDoForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const title = document.querySelector("#todo-title").value;
-  const description = document.querySelector("#todo-description").value;
-  const dueDate = document.querySelector("#todo-due-date").value;
-  const priority = document.querySelector("#todo-priority").value;
-  const newToDoItem = new ToDoItem(title, description, dueDate, priority);
-  toDoItemRenderer.displayToDoItem(newToDoItem);
-  toDoModal.close();
-  toDoForm.reset();
-});
-
-// Add event listener to "Add To Do Item" button
-const toDoBtn = document.querySelector("#add-todo-btn");
-toDoBtn.addEventListener("click", () => {
-  toDoModal.showModal();
-}); 
-
-
