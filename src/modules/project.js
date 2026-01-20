@@ -10,6 +10,22 @@ class Project {
     toDoItem.project = this;
   }
 
+  removeToDoItem(toDoItem) {
+    this.toDoItems = this.toDoItems.filter(item => item !== toDoItem);
+    toDoItem.project = null;
+  }
+
+  getToDoItems() {
+    return this.toDoItems;
+  }
+
+  deleteProject() {
+    this.toDoItems.forEach(item => {
+      item.project = null;
+    });
+    this.toDoItems = [];
+  }
+
 }
 
 export default Project;

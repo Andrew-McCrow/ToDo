@@ -3,43 +3,48 @@ import Project from "./modules/project.js";
 import ToDoItem from "./modules/toDoItem.js";
 import { ProjectRenderer, ToDoItemRenderer, ProjectListRenderer } from "./modules/DOM.js";
 
+// Global project list
+const projectList = [];
+// Track selected project
+let selectedProject = null; 
+
 // Initialize application
 document.addEventListener("DOMContentLoaded", () => {
-// Global project list
-  const projectList = [];
 
   // Example usage:
-  // create a new project and to-do item
-  const exampleProject = new Project("My First Project");
+    // create a new project and to-do item
+    const exampleProject = new Project("My First Project");
 
-  const exampleTask = new ToDoItem(
-    "Buy groceries",
-    "Milk, Bread, Eggs",
-    "2024-07-01",
-    "High",
-    [],
-    [],
-    exampleProject
-  );
+    const exampleTask = new ToDoItem(
+      "Buy groceries",
+      "Milk, Bread, Eggs",
+      "2024-07-01",
+      "High",
+      [],
+      [],
+      exampleProject
+    );
 
-  // add project to global project list & render project list
-  const projectListRenderer = new ProjectListRenderer();
-  projectList.push(exampleProject);
-  projectListRenderer.displayProjectList(projectList);
+    // add project to global project list & render project list
+    const projectListRenderer = new ProjectListRenderer();
+    projectList.push(exampleProject);
+    projectListRenderer.displayProjectList(projectList);
 
-  // link to-do item to project
-  exampleProject.addToDoItem(exampleTask);
-  exampleTask.addNote("Remember to check for discounts.");
-  exampleTask.addChecklistItem("Buy Milk");
-  exampleTask.addChecklistItem("Buy Bread");
-  exampleTask.addChecklistItem("Buy Eggs");
-  exampleTask.markChecklistItemCompleted(0);
+    // link to-do item to project
+    exampleProject.addToDoItem(exampleTask);
+    exampleTask.addNote("Remember to check for discounts.");
+    exampleTask.addChecklistItem("Buy Milk");
+    exampleTask.addChecklistItem("Buy Bread");
+    exampleTask.addChecklistItem("Buy Eggs");
+    exampleTask.markChecklistItemCompleted(0);
 
-  // Render project and to-do item in the DOM
-  const exampleProjectRenderer = new ProjectRenderer();
-  const exampleToDoItemRenderer = new ToDoItemRenderer();
-  exampleProjectRenderer.displayProject(exampleProject);    
-  exampleToDoItemRenderer.displayToDoItem(exampleTask);
+    // Render project and to-do item in the DOM
+    const exampleProjectRenderer = new ProjectRenderer();
+    const exampleToDoItemRenderer = new ToDoItemRenderer();
+    exampleProjectRenderer.displayProject(exampleProject);    
+    exampleToDoItemRenderer.displayToDoItem(exampleTask);
+
+
 
   // modal and form for adding new projects
   const projectModal = document.querySelector("#new-project-modal");  
@@ -83,7 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const notes = document.querySelector("#todo-notes").value;
     const checklist = document.querySelector("#todo-checklist").value.split(",").map(item => item.trim());  
     const projectName = document.querySelector("#project-assignment").value;
-    const newToDoItem = new ToDoItem(title, description, dueDate, priority, notes, checklist, projectName);
+    const assignedProject = projectName ? projectList.find((p) => p.name === projectName) : null;
+    const newToDoItem = new ToDoItem(title, description, dueDate, priority, notes, checklist, assignedProject);
     const newToDoItemRenderer = new ToDoItemRenderer();
     newToDoItemRenderer.displayToDoItem(newToDoItem);
     toDoModal.close();
@@ -97,3 +103,39 @@ document.addEventListener("DOMContentLoaded", () => {
   }); 
 
 });
+
+// Add event listener for project deletion
+const projectListContainer = document.querySelector("#project-list");
+projectListContainer.addEventListener("click", (e) => {
+  if (e.target && e.target.matches("button.delete-project-button")) {
+    const projectContainer = e.target.closest("li.project-container");
+    projectContainer.remove();
+    // Remove project from global project list
+    const projectName = projectContainer.dataset.projectName;
+    const projectIndex = projectList.findIndex((p) => p.name === projectName);
+    if (projectIndex !== -1) {
+      projectList.splice(projectIndex, 1);
+      // Update project list in the DOM
+      const projectListRenderer = new ProjectListRenderer();
+      projectListRenderer.displayProjectList(projectList);
+    }
+  }
+});
+
+
+
+// Event listener for project selection by clicking on project name
+document.querySelector("#project-list").addEventListener("click", (e) => {
+  if (e.target && e.target.matches("li.project-container")) {
+    const projectName = e.target.dataset.projectName;
+    // You can now use projectName to filter/display to-do items related to this project
+    console.log(`Selected project: ${projectName}`);
+    // Add logic to highlight selected project and display its to-do items
+    const projectContainers = document.querySelectorAll("li.project-container");
+    projectContainers.forEach((container) => {
+      container.classList.remove("selected");
+    });
+    e.target.classList.add("selected"); 
+  }
+});
+

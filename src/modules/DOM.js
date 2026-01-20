@@ -22,10 +22,7 @@ class ProjectRenderer {
     // add delete button for project
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete Project";
-    deleteBtn.className = "delete-button";
-    deleteBtn.addEventListener("click", () => {
-      projectContainer.remove();
-    });
+    deleteBtn.className = "delete-project-button";
     projectContainer.appendChild(deleteBtn);
 
     // append project container to main project list in DOM
@@ -33,10 +30,24 @@ class ProjectRenderer {
     projectList.appendChild(projectContainer);
   }
 
+  removeProject(project) {
+    project.remove();
+  }
+
+  
+  selectedProject(project) {
+    project.classList.add("selected");
+
+  }
+
   updateProject(project) {
     // Implement update logic here
   }
 }
+
+
+
+
 
 // Display, update or remove a to-do item in the DOM
 class ToDoItemRenderer {
@@ -80,7 +91,7 @@ class ToDoItemRenderer {
     // add delete button for to-do item
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete To-Do Item";
-    deleteBtn.className = "delete-button";
+    deleteBtn.className = "delete-todo-button";
     deleteBtn.addEventListener("click", () => {
       itemContainer.remove();
     });
@@ -95,7 +106,7 @@ class ToDoItemRenderer {
 class ProjectListRenderer {
   displayProjectList(projects) {
     const projectListContainer = document.querySelector("#project-assignment");
-    projectListContainer.innerHTML = ""; // Clear existing list
+    projectListContainer.innerHTML = '<option value="">Unassigned</option>'; // Start with unassigned
 
     projects.forEach((project) => {
       const projectItem = document.createElement("option");

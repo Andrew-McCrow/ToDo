@@ -298,7 +298,7 @@ textarea {
   background-color: #5a6268;
 }
 /* Delete Button Styles */
-.delete-button {
+.delete-project-button, .delete-todo-button {
   background-color: #dc3545;
   color: white;
   border: none;
@@ -311,24 +311,35 @@ textarea {
   transition: all 0.2s ease;
 }
 
-.delete-button:hover {
+.delete-project-button:hover, .delete-todo-button:hover {
   background-color: #c82333;
   box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
   transform: translateY(-1px);
 }
 
-.delete-button:active {
+.delete-project-button:active, .delete-todo-button:active {
   transform: translateY(0);
   box-shadow: 0 1px 4px rgba(220, 53, 69, 0.3);
 }
 
 /* Delete button within project containers */
-.project-container .delete-button {
+.project-container .delete-project-button {
   margin-bottom: 0;
 }
 
 /* Delete button within to-do item containers */
-.todo-item-container .delete-button {
+.todo-item-container .delete-todo-button {
   margin-bottom: 0;
   margin-top: 15px;
 }
+
+/* Selected Project Styles */
+.selected {
+    border-left-color: #ffc107;
+    background-color: #fff8e1;
+}   
+
+.selected h2 {
+    color: #cc9a06;
+}       
+
