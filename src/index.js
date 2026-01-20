@@ -10,36 +10,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Example usage:
   // create a new project and to-do item
-  const myProject = new Project("My First Project");
+  const exampleProject = new Project("My First Project");
 
-  const task1 = new ToDoItem(
+  const exampleTask = new ToDoItem(
     "Buy groceries",
     "Milk, Bread, Eggs",
     "2024-07-01",
     "High",
     [],
     [],
-    myProject
+    exampleProject
   );
 
   // add project to global project list & render project list
   const projectListRenderer = new ProjectListRenderer();
-  projectList.push(myProject);
+  projectList.push(exampleProject);
   projectListRenderer.displayProjectList(projectList);
 
   // link to-do item to project
-  myProject.addToDoItem(task1);
-  task1.addNote("Remember to check for discounts.");
-  task1.addChecklistItem("Buy Milk");
-  task1.addChecklistItem("Buy Bread");
-  task1.addChecklistItem("Buy Eggs");
-  task1.markChecklistItemCompleted(0);
+  exampleProject.addToDoItem(exampleTask);
+  exampleTask.addNote("Remember to check for discounts.");
+  exampleTask.addChecklistItem("Buy Milk");
+  exampleTask.addChecklistItem("Buy Bread");
+  exampleTask.addChecklistItem("Buy Eggs");
+  exampleTask.markChecklistItemCompleted(0);
 
   // Render project and to-do item in the DOM
-  const projectRenderer = new ProjectRenderer();
-  const toDoItemRenderer = new ToDoItemRenderer();
-  projectRenderer.displayProject(myProject);    
-  toDoItemRenderer.displayToDoItem(task1);
+  const exampleProjectRenderer = new ProjectRenderer();
+  const exampleToDoItemRenderer = new ToDoItemRenderer();
+  exampleProjectRenderer.displayProject(exampleProject);    
+  exampleToDoItemRenderer.displayToDoItem(exampleTask);
 
   // modal and form for adding new projects
   const projectModal = document.querySelector("#new-project-modal");  
@@ -52,7 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     const projectName = document.querySelector("#project-name").value;
     const newProject = new Project(projectName);
-    projectRenderer.displayProject(newProject);
+    const newProjectRenderer = new ProjectRenderer();
+    newProjectRenderer.displayProject(newProject);
     projectModal.close();
     projectForm.reset();
     projectList.push(newProject); // add new project to global list
@@ -83,7 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const checklist = document.querySelector("#todo-checklist").value.split(",").map(item => item.trim());  
     const projectName = document.querySelector("#project-assignment").value;
     const newToDoItem = new ToDoItem(title, description, dueDate, priority, notes, checklist, projectName);
-    toDoItemRenderer.displayToDoItem(newToDoItem);
+    const newToDoItemRenderer = new ToDoItemRenderer();
+    newToDoItemRenderer.displayToDoItem(newToDoItem);
     toDoModal.close();
     toDoForm.reset();
   });

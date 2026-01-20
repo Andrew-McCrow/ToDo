@@ -1,6 +1,6 @@
 // ToDoItem class - represents a single to-do item
 class ToDoItem {
-  constructor(title, description, dueDate, priority, notes = [], checklist = [], project = null) {
+  constructor(title, description, dueDate = today(), priority, notes = [], checklist = [], project = null) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;

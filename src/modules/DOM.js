@@ -62,7 +62,7 @@ class ToDoItemRenderer {
     itemContainer.appendChild(itemPriority);
 
     const notes = document.createElement("p");
-    notes.textContent = `Notes: ${toDoItem.notes.join(", ")}`;
+    notes.textContent = `Notes: ${toDoItem.notes}`;
     itemContainer.appendChild(notes);  
 
     const checklist = document.createElement("ul");
