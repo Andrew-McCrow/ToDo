@@ -37,17 +37,12 @@ class ProjectRenderer {
   
   selectedProject(project) {
     project.classList.add("selected");
-
   }
 
   updateProject(project) {
     // Implement update logic here
   }
 }
-
-
-
-
 
 // Display, update or remove a to-do item in the DOM
 class ToDoItemRenderer {
@@ -92,9 +87,6 @@ class ToDoItemRenderer {
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete To-Do Item";
     deleteBtn.className = "delete-todo-button";
-    deleteBtn.addEventListener("click", () => {
-      itemContainer.remove();
-    });
     itemContainer.appendChild(deleteBtn);
 
     // append to-do item container to main to-do list in DOM
