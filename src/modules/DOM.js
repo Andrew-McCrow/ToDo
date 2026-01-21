@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 // Display, update or remove a project in the DOM
 class ProjectRenderer {
   displayProject(project) {
@@ -71,7 +73,11 @@ class ToDoItemRenderer {
       itemContainer.appendChild(itemDescription);
 
       const itemDueDate = document.createElement("p");
-      itemDueDate.textContent = `Due Date: ${toDoItem.dueDate}`;
+      if (toDoItem.dueDate) {
+        itemDueDate.textContent = `Due Date: ${format(new Date(toDoItem.dueDate), 'MMM dd, yyyy')}`;
+      } else {
+        itemDueDate.textContent = `Due Date: Not set`;
+      }
       itemContainer.appendChild(itemDueDate);
 
       const itemPriority = document.createElement("p");

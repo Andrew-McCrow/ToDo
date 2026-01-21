@@ -5,6 +5,8 @@ import { ProjectRenderer, ToDoItemRenderer, ProjectListRenderer } from "./module
 
 // Global project list
 const projectList = [];
+// Global to-do item list
+const toDoItemList = [];
 // Track selected project
 let selectedProject = null; 
 
@@ -14,6 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Expose classes for testing in console
   window.Project = Project;
   window.ToDoItem = ToDoItem;
+  window.projectList = projectList;
+  window.toDoItemList = toDoItemList;
 
   // ******* EXAMPLE DATA ******* //
     // create a new example project and to-do item
@@ -35,8 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
     exampleTask.addChecklistItem("Buy Eggs");
     exampleTask.markChecklistItemCompleted(0);
 
-    // Add example project to global project list
+    // Add example project & to-do item to global lists
     projectList.push(exampleProject);
+    toDoItemList.push(exampleTask);
 
     // Render example project and to-do item in the DOM
     const exampleProjectRenderer = new ProjectRenderer();
@@ -130,18 +135,34 @@ projectListRenderer.displayProjectList(projectList);
       const newToDoItemRenderer = new ToDoItemRenderer();
       newToDoItemRenderer.displayToDoItem(newToDoItem);
       newToDoItemRenderer.addToDoItemToProject(newToDoItem, assignedProject);
+      toDoItemList.push(newToDoItem); // add new to-do item to global list
       toDoModal.close();
       toDoForm.reset();
     });
 
     // Event listener for to-do item deletion
-      const toDoListContainer = document.querySelector("#todo-list");
-      toDoListContainer.addEventListener("click", (e) => {
-        if (e.target && e.target.matches("button.delete-todo-button")) {
-          const itemContainer = e.target.closest("li.todo-item-container");
-          itemContainer.remove();
+    const toDoListContainer = document.querySelector("#todo-list");
+    toDoListContainer.addEventListener("click", (e) => {
+      if (e.target && e.target.matches("button.delete-todo-button")) {
+        const itemContainer = e.target.closest("li.todo-item-container");
+        const itemTitle = itemContainer.querySelector("h3").textContent;
+        itemContainer.remove();
+
+        // Remove from global toDoItemList
+        const todoIndex = toDoItemList.findIndex((item) => item.title === itemTitle);
+        if (todoIndex !== -1) {
+          toDoItemList.splice(todoIndex, 1);
         }
         
+        // Also remove from its project if assigned
+        projectList.forEach((project) => {
+          const toDoItem = project.toDoItems.find((item) => item.title === itemTitle);
+          if (toDoItem) {
+            project.removeToDoItem(toDoItem);
+          }
+          
+        }); 
+      }
     });
   // ******* LOGIC FOR ADDING & REMOVING TO-DO ITEMS ******* //
 
