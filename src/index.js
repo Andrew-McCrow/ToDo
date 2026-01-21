@@ -147,21 +147,17 @@ projectListRenderer.displayProjectList(projectList);
         const itemContainer = e.target.closest("li.todo-item-container");
         const itemTitle = itemContainer.querySelector("h3").textContent;
         itemContainer.remove();
+        const toDoItemRenderer = new ToDoItemRenderer();
+        const toDoItem = toDoItemList.find((item) => item.title === itemTitle);
+        if (toDoItem) {
+          toDoItemRenderer.removeToDoItem(toDoItem);
+        }
 
         // Remove from global toDoItemList
         const todoIndex = toDoItemList.findIndex((item) => item.title === itemTitle);
         if (todoIndex !== -1) {
           toDoItemList.splice(todoIndex, 1);
         }
-        
-        // Also remove from its project if assigned
-        projectList.forEach((project) => {
-          const toDoItem = project.toDoItems.find((item) => item.title === itemTitle);
-          if (toDoItem) {
-            project.removeToDoItem(toDoItem);
-          }
-          
-        }); 
       }
     });
   // ******* LOGIC FOR ADDING & REMOVING TO-DO ITEMS ******* //

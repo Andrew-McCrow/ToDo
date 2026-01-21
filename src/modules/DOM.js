@@ -145,8 +145,12 @@ class ToDoItemRenderer {
       }
     }
 
-    // remove to-do item from DOM
+    // remove to-do item from DOM & from its project if assigned
     removeToDoItem(toDoItem) {
+      // First remove from project if it has one
+      if (toDoItem.project) {
+        this.removeToDoItemFromProject(toDoItem, toDoItem.project);
+      }
       const itemContainers = document.querySelectorAll("li.todo-item-container");
       itemContainers.forEach((container) => {
         const itemTitle = container.querySelector("h3").textContent;

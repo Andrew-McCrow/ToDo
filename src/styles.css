@@ -335,11 +335,11 @@ textarea {
 
 /* Selected Project Styles */
 .selected {
-    border-left-color: #ffc107;
+    border-left-color: #03ae39;
     background-color: #fff8e1;
 }   
 
 .selected h2 {
-    color: #cc9a06;
+    color: #03ae39;
 }       
 
