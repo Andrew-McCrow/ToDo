@@ -19,13 +19,6 @@ class Project {
     return this.toDoItems;
   }
 
-  deleteProject() {
-    this.toDoItems.forEach(item => {
-      item.project = null;
-    });
-    this.toDoItems = [];
-  }
-
 }
 
 export default Project;
