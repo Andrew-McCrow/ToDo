@@ -3,14 +3,17 @@ const getTodayDate = () => new Date().toISOString().split('T')[0];
 
 // ToDoItem class - represents a single to-do item
 class ToDoItem {
-  constructor(title, description, dueDate = getTodayDate(), priority, notes = [], checklist = [], project = null) {
-    this.title = title;
+  static nextId = 1;
+  
+  constructor(name, description, dueDate = getTodayDate(), priority, notes = [], checklist = [], projectId = null) {
+    this.toDoId = ToDoItem.nextId++;
+    this.name = name;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
     this.notes = notes;
     this.checklist = checklist;
-    this.project = project;
+    this.projectId = projectId;
 
     this.isCompleted = false;
   }  
@@ -34,8 +37,8 @@ class ToDoItem {
   }
 
   // Check if this to-do item belongs to a specific project (returns boolean)
-  toDoItemByProject(project) {
-    return this.project === project;
+  toDoItemByProjectId(projectId) {
+    return this.projectId === projectId;
   }
 
 }
