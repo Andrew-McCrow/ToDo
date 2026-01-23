@@ -8,10 +8,12 @@ import ExampleProjectAndToDo from "./modules/example-project-and-to-do.js";
 import modals from "./modules/modals.js";
 import ModalEventListeners from "./modules/EventListeners-Modals.js";
 import ProjectEventListeners from "./modules/EventListeners-Projects.js";
+import ToDoEventListeners from "./modules/EventListeners-ToDo.js";
 
-// Instantiate EventListeners with modals dependency
+// Instantiate EventListeners
 const modalEventListeners = new ModalEventListeners(modals);
 const projectEventListeners = new ProjectEventListeners();
+const toDoEventListeners = new ToDoEventListeners();
 
 // Initialize application
 document.addEventListener("DOMContentLoaded", () => {
@@ -33,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // ******* LOGIC FOR ADDING, EDITING & REMOVING TO-DO ITEMS ******* //
 
+  toDoEventListeners.init();
 
    
   
