@@ -282,19 +282,21 @@ textarea {
   font-weight: 600;
 }
 
-.modal-actions button[type="submit"] {
+/* First button in modal actions is primary (green) */
+.modal-actions button:first-child {
   background-color: #28a745;
 }
 
-.modal-actions button[type="submit"]:hover {
+.modal-actions button:first-child:hover {
   background-color: #218838;
 }
 
-.modal-actions button[type="button"] {
+/* Subsequent buttons are secondary (gray) */
+.modal-actions button:not(:first-child) {
   background-color: #6c757d;
 }
 
-.modal-actions button[type="button"]:hover {
+.modal-actions button:not(:first-child):hover {
   background-color: #5a6268;
 }
 /* Delete Button Styles */

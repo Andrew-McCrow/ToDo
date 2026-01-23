@@ -35,3 +35,120 @@
     </div>
 </body>
 </html>
+
+<!-- Modal for adding new project -->
+<dialog id="new-project-modal">
+    <form id="new-project-form" method="dialog">
+        <h2>Add a New Project</h2>
+        <label for="project-name">Project Name:</label>
+        <input type="text" id="project-name" name="project-name" required>
+
+        <div class="modal-actions">
+            <button type="button" id="add-project-button-modal">Add Project</button>
+            <button type="button" id="cancel-project-button-modal">Cancel</button>
+        </div>
+    </form>
+</dialog>
+
+<!-- Modal for adding new to-do item -->
+ <dialog id="new-todo-modal">
+    <form id="new-todo-form" method="dialog">
+        <h2>Add a New To Do Item</h2>
+        
+        <label for="todo-name">To Do Item Name:</label>
+            <input type="text" id="todo-name" name="todo-name" required>
+        <label for="description">Description:</label>
+            <input type="text" id="todo-description" name="todo-description">
+        <label for="todo-due-date">Due Date:</label>
+            <input type="date" id="todo-due-date" name="todo-due-date">
+        <label for="todo-priority">Priority:</label>
+            <select id="todo-priority" name="todo-priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>       
+        <label for="notes">Notes: </label>
+            <textarea id="todo-notes" name="todo-notes"></textarea>
+        <label for="checklist">Checklist</label>
+            <textarea id="todo-checklist" name="todo-checklist" placeholder="Enter checklist items separated by commas"></textarea> 
+        <label for="project-assignment">Assign to Project:</label>
+            <select id="project-assignment" name="project-assignment">
+                <!-- Project options will be injected here -->
+            </select>
+
+        <div class="modal-actions">
+            <button type="button" id="add-todo-item-button-modal">Add To Do Item</button>
+            <button type="button" id="cancel-todo-button-modal">Cancel</button>
+        </div>
+    </form>
+</dialog>
+
+<!-- Modal for confirming deletion of a project -->
+<dialog id="confirm-delete-project-modal">
+    <form id="confirm-delete-project-form" method="dialog">
+        <h2>Confirm Delete Project</h2>
+        <p>Are you sure you want to delete this project?</p>
+        <div class="modal-actions">
+            <button type="button" id="confirm-delete-project-button">Delete</button>
+            <button type="button" id="cancel-delete-project-button">Cancel</button>
+        </div>
+    </form>
+</dialog>
+
+<!-- Modal for confirming deletion of a to-do item -->
+<dialog id="confirm-delete-todo-modal">
+    <form id="confirm-delete-todo-form" method="dialog">
+        <h2>Confirm Delete To-Do Item</h2>
+        <p>Are you sure you want to delete this to-do item?</p>
+        <div class="modal-actions">         
+            <button type="button" id="confirm-delete-todo-button">Delete</button>
+            <button type="button" id="cancel-delete-todo-button">Cancel</button>
+        </div>
+    </form>
+</dialog>   
+
+<!-- Modal for editing a project -->
+<dialog id="edit-project-modal">
+    <form id="edit-project-form" method="dialog">
+        <h2>Edit Project</h2>
+        <label for="edit-project-name">Project Name:</label>
+        <input type="text" id="edit-project-name" name="edit-project-name" required> 
+        <div class="modal-actions">
+            <button type="button" id="save-project-button-modal">Save Changes</button>
+            <button type="button" id="cancel-edit-project-button-modal">Cancel</button>
+        </div>
+    </form>
+</dialog>
+
+<!-- Modal for editing a to-do item -->
+ <dialog id="edit-todo-modal">
+    <form id="edit-todo-form" method="dialog">
+        <h2>Edit To Do Item</h2>
+        
+        <label for="edit-todo-name">To Do Item Name:</label>
+            <input type="text" id="edit-todo-name" name="edit-todo-name" required>
+        <label for="edit-description">Description:</label>
+            <input type="text" id="edit-todo-description" name="edit-todo-description">
+        <label for="edit-todo-due-date">Due Date:</label>
+            <input type="date" id="edit-todo-due-date" name="edit-todo-due-date">
+        <label for="edit-todo-priority">Priority:</label>
+            <select id="edit-todo-priority" name="edit-todo-priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>       
+        <label for="edit-notes">Notes: </label>
+            <textarea id="edit-todo-notes" name="edit-todo-notes"></textarea>
+        <label for="edit-checklist">Checklist</label>
+            <textarea id="edit-todo-checklist" name="edit-todo-checklist" placeholder="Enter checklist items separated by commas"></textarea> 
+        <label for="edit-project-assignment">Assign to Project:</label>
+            <select id="edit-project-assignment" name="edit-project-assignment">
+                <!-- Project options will be injected here -->
+            </select>
+
+        <div class="modal-actions">
+            <button type="button" id="save-todo-item-button-modal">Save Changes</button>
+            <button type="button" id="cancel-edit-todo-button-modal">Cancel</button>
+        </div>
+    </form>
+</dialog>   
