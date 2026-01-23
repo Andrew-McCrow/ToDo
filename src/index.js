@@ -6,11 +6,14 @@ import { ProjectRenderer } from "./modules/ProjectRenderer.js";
 import { ToDoItemRenderer } from "./modules/ToDoRenderer.js";
 import ExampleProjectAndToDo from "./modules/example-project-and-to-do.js";
 import modals from "./modules/modals.js";
-import eventListeners from "./modules/EventListeners.js";
+import EventListeners from "./modules/EventListeners.js";
+
+// Instantiate EventListeners with modals dependency
+const eventListeners = new EventListeners(modals);
 
 // Initialize application
 document.addEventListener("DOMContentLoaded", () => {
-  
+
   // Load example project and to-do item (Project: My First Project, To-Do: Buy groceries)
   ExampleProjectAndToDo();
   
@@ -19,15 +22,16 @@ document.addEventListener("DOMContentLoaded", () => {
   window.Project = Project; // expose Project class to create new projects in console
   window.ToDoItem = ToDoItem; // expose ToDoItem class to create new to-dos in console
 
+  // Initialize event listeners for "Add Project" and "Add To-Do Item" buttons (opens modals).
+  eventListeners.init();
+ 
   // ******* LOGIC FOR ADDING & REMOVING PROJECTS ******* //
-  // Event listener to "Add Project" button - opens project creation modal
-  // eventListeners.addProjectButtonListener(modals);
+
   
   
   // ******* LOGIC FOR ADDING & REMOVING TO-DO ITEMS ******* //
-  // Event listener to "Add To-Do Item" button - opens to-do item creation modal
-  // eventListeners.addToDoButtonListener(modals);
 
-  eventListeners.init();  // Single call instead of two
+
+   
   
 });

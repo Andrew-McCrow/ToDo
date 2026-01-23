@@ -59,6 +59,7 @@ class ToDoItemRenderer {
       const deleteBtn = document.createElement("button");
       deleteBtn.textContent = "Delete To-Do Item";
       deleteBtn.className = "delete-todo-button";
+      deleteBtn.dataset.toDoId = toDoItem.toDoId;
       itemContainer.appendChild(deleteBtn);
 
       // append to-do item container to main to-do list in DOM

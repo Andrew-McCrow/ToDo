@@ -2,7 +2,7 @@ import Project from "./Project.js";
 import ToDoItem from "./ToDoItem.js";
 import data from "./data.js";
 import { ProjectRenderer } from "./ProjectRenderer.js";
-import { ToDoItemRenderer, ProjectListRenderer } from "./ToDoRenderer.js";
+import { ToDoItemRenderer } from "./ToDoRenderer.js";
 
 function ExampleProjectAndToDo() {
     // create a new example project and to-do item

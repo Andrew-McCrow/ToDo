@@ -3,6 +3,11 @@ import { format } from 'date-fns';
 // Display, update or remove a project in the DOM
 class ProjectRenderer {
 
+  // Caching DOM Query here to improve perfomramce 
+  constructor() {
+  this.projectListContainer = document.getElementById("project-list");
+  }
+
   displayProject(project) {
 
     //Creates project container element, something like: <li class="project-container" data-project-name="****"> </li>
@@ -28,15 +33,15 @@ class ProjectRenderer {
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete Project";
     deleteBtn.className = "delete-project-button";
+    deleteBtn.dataset.projectId = project.projectId;
     projectContainer.appendChild(deleteBtn);
 
     // append project container to main project list in DOM
-    const projectList = document.getElementById("project-list");
-    if (!projectList) {
+    if (!this.projectListContainer) {
       console.warn("Project list not found in DOM");
       return;
     }
-    projectList.appendChild(projectContainer);    
+    this.projectListContainer.appendChild(projectContainer);    
   }
 
   removeProjectById(projectId) {
