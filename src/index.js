@@ -27,11 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize event listeners for "Add Project", "Add To-Do Item", "Delete Project", and "Delete To-Do Item" buttons (opens modals).
   modalEventListeners.init();
  
-  // ******* LOGIC FOR ADDING & REMOVING PROJECTS ******* //
+  // ******* LOGIC FOR ADDING, EDITING & REMOVING PROJECTS ******* //
 
   projectEventListeners.init();
   
-  // ******* LOGIC FOR ADDING & REMOVING TO-DO ITEMS ******* //
+  // ******* LOGIC FOR ADDING, EDITING & REMOVING TO-DO ITEMS ******* //
 
 
    

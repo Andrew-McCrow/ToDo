@@ -6,7 +6,7 @@ class ToDoItem {
   static nextId = 1;
   
   constructor(name, description, dueDate = getTodayDate(), priority, notes = [], checklist = [], projectId = null) {
-    this.toDoId = ToDoItem.nextId++;
+    this.toDoId = String(ToDoItem.nextId++);
     this.name = name;
     this.description = description;
     this.dueDate = dueDate;

@@ -3,7 +3,7 @@ class Project {
 static nextId = 1;
 
   constructor(name) {
-    this.projectId = Project.nextId++;
+    this.projectId = String(Project.nextId++);
     this.name = name;
     this.toDoItems = [];
   }

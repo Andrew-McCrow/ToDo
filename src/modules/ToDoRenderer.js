@@ -77,7 +77,7 @@ class ToDoItemRenderer {
     removeToDoItemById(toDoId) {
       const toDoContainers = document.querySelectorAll("li.todo-item-container");
       toDoContainers.forEach((container) => {
-        if (container.dataset.toDoId === toDoId.toString()) {
+        if (container.dataset.toDoId === toDoId) {
           container.remove();
         }
       });

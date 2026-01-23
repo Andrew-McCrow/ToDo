@@ -51,7 +51,7 @@ class ProjectRenderer {
     this.projectListContainer.appendChild(projectContainer);    
   }
 
-  removeProjectById(projectId) {
+ removeProjectById(projectId) {
   const projectContainers = document.querySelectorAll("li.project-container");
   projectContainers.forEach((container) => {
     if (container.dataset.projectId === projectId) {
@@ -59,43 +59,43 @@ class ProjectRenderer {
     }
   });
 }
-  
-  updateProjectNameById(projectId, newName) {
-    const projectContainers = document.querySelectorAll("li.project-container");
-    projectContainers.forEach((container) => {
-      if (container.dataset.projectId === projectId) {
-        const projectNameElement = container.querySelector("h2");
-        projectNameElement.textContent = newName;
-      }
-    });
-  }
 
-  addToDoItemToProjectById(toDoItem, projectId) {
-    const projectContainers = document.querySelectorAll("li.project-container");
-    projectContainers.forEach((container) => {
-      if (container.dataset.projectId === projectId) {
-        const projectToDoList = container.querySelector("ul");
-        const projectListItem = document.createElement("li");
-        projectListItem.textContent = toDoItem.name;
-        projectToDoList.appendChild(projectListItem);
-      }
-    });
-  }
+updateProjectNameById(projectId, newName) {
+  const projectContainers = document.querySelectorAll("li.project-container");
+  projectContainers.forEach((container) => {
+    if (container.dataset.projectId === projectId) {
+      const projectNameElement = container.querySelector("h2");
+      projectNameElement.textContent = newName;
+    }
+  });
+}
 
-  removeToDoItemFromProjectById(toDoItem, projectId) {
-    const projectContainers = document.querySelectorAll("li.project-container");
-    projectContainers.forEach((container) => {
-      if (container.dataset.projectId === projectId) {
-        const projectToDoList = container.querySelector("ul");
-        const listItems = projectToDoList.querySelectorAll("li");
-        listItems.forEach((listItem) => {
-          if (listItem.textContent === toDoItem.name) {
-            listItem.remove();
-          }
-        });
-      }
-    });
-  }
+addToDoItemToProjectById(toDoItem, projectId) {
+  const projectContainers = document.querySelectorAll("li.project-container");
+  projectContainers.forEach((container) => {
+    if (container.dataset.projectId === projectId) {
+      const projectToDoList = container.querySelector("ul");
+      const projectListItem = document.createElement("li");
+      projectListItem.textContent = toDoItem.name;
+      projectToDoList.appendChild(projectListItem);
+    }
+  });
+}
+
+removeToDoItemFromProjectById(toDoItem, projectId) {
+  const projectContainers = document.querySelectorAll("li.project-container");
+  projectContainers.forEach((container) => {
+    if (container.dataset.projectId === projectId) {
+      const projectToDoList = container.querySelector("ul");
+      const listItems = projectToDoList.querySelectorAll("li");
+      listItems.forEach((listItem) => {
+        if (listItem.textContent === toDoItem.name) {
+          listItem.remove();
+        }
+      });
+    }
+  });
+}
 
   selectedProject(project) {
     project.classList.add("selected");
