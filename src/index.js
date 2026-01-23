@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.Project = Project; // expose Project class to create new projects in console
   window.ToDoItem = ToDoItem; // expose ToDoItem class to create new to-dos in console
 
-  // Initialize event listeners for "Add Project" and "Add To-Do Item" buttons (opens modals).
+  // Initialize event listeners for "Add Project", "Add To-Do Item", "Delete Project", and "Delete To-Do Item" buttons (opens modals).
   eventListeners.init();
  
   // ******* LOGIC FOR ADDING & REMOVING PROJECTS ******* //

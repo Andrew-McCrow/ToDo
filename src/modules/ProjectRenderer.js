@@ -29,6 +29,13 @@ class ProjectRenderer {
     });
     projectContainer.appendChild(toDoList);
 
+    // add edit button element for project
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "Edit Project";
+    editBtn.className = "edit-project-button";
+    editBtn.dataset.projectId = project.projectId;
+    projectContainer.appendChild(editBtn);
+
     // add delete button element for project
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete Project";

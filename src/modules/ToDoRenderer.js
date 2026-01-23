@@ -55,6 +55,13 @@ class ToDoItemRenderer {
       toDoProject.textContent = `Project: ${toDoItem.projectId ? data.getProjectById(toDoItem.projectId).name : "None"}`;
       itemContainer.appendChild(toDoProject);
 
+      // add edit button for to-do item
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "Edit To-Do Item";
+      editBtn.className = "edit-todo-button";
+      editBtn.dataset.toDoId = toDoItem.toDoId;
+      itemContainer.appendChild(editBtn);
+
       // add delete button for to-do item
       const deleteBtn = document.createElement("button");
       deleteBtn.textContent = "Delete To-Do Item";

@@ -343,3 +343,44 @@ textarea {
     color: #03ae39;
 }       
 
+/* Edit Button Styles */
+.edit-project-button, .edit-todo-button {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  margin-right: 8px;
+  margin-top: 10px;
+  transition: all 0.2s ease;
+}
+
+.edit-project-button:hover, .edit-todo-button:hover {
+  background-color: #138496;
+  box-shadow: 0 2px 8px rgba(23, 162, 184, 0.3);
+  transform: translateY(-1px);
+}
+
+.edit-project-button:active, .edit-todo-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(23, 162, 184, 0.3);
+}
+
+/* Button Group for Edit and Delete together */
+.todo-item-container .edit-todo-button {
+  margin-bottom: 0;
+  margin-top: 15px;
+}
+
+.todo-item-container .delete-todo-button {
+  margin-bottom: 0;
+  margin-top: 15px;
+  margin-left: 0;
+}
+
+.project-container .edit-project-button {
+  margin-bottom: 0;
+}
