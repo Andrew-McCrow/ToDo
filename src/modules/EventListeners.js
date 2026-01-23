@@ -45,13 +45,39 @@ class EventListeners {
     });
   }
 
+  editProjectListener() {
+    if (!this.projectList) return;
+    // Listen on parent container for any edit button clicks
+    this.projectList.addEventListener("click", (e) => {
+      if (e.target.classList.contains("edit-project-button")) {
+        const projectId = e.target.dataset.projectId;
+        console.log("Edit project:", projectId);
+        this.modals.displayEditProjectModal(projectId);
+      }
+    });
+  }
+
+  editToDoItemListener() {
+    if (!this.todoList) return;
+    // Listen on parent container for any edit button clicks
+    this.todoList.addEventListener("click", (e) => {
+      if (e.target.classList.contains("edit-todo-button")) {
+        const toDoId = e.target.dataset.toDoId;
+        console.log("Edit todo:", toDoId);
+        this.modals.displayEditToDoModal(toDoId);
+      }
+    });
+  }
+
   init() {
     this.addProjectButtonListener();
     this.addToDoButtonListener();
     this.deleteProjectListener();
     this.deleteToDoItemListener();
+    this.editProjectListener();
+    this.editToDoItemListener();
   }
-  
+
 }
 
 export default EventListeners;

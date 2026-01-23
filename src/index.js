@@ -1,3 +1,4 @@
+import './modals.html';
 import "./styles.css";
 import Project from "./modules/Project.js";
 import ToDoItem from "./modules/ToDoItem.js";

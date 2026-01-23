@@ -39,7 +39,27 @@ class Modals {
         // Store toDoId somewhere so form submission can use it
         modal.dataset.toDoId = toDoId;
         modal.showModal();
-    }       
+    }     
+    
+    displayEditProjectModal(projectId) {
+        const modal = document.getElementById("edit-project-modal");
+        if (!modal) {
+            console.warn("Edit project modal not found in DOM");
+            return;
+        }
+        modal.dataset.projectId = projectId;
+        modal.showModal();
+    }
+
+    displayEditToDoModal(toDoId) {
+        const modal = document.getElementById("edit-todo-modal");
+        if (!modal) {
+            console.warn("Edit to-do modal not found in DOM");
+            return;
+        }
+        modal.dataset.toDoId = toDoId;
+        modal.showModal();
+    }
 
 }   
 
