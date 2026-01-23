@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import data from './Data.js';
+import data from './data.js';
 
 // Display, update or remove a to-do item in the DOM
 class ToDoItemRenderer {

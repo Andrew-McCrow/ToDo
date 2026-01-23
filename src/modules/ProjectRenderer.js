@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 
 // Display, update or remove a project in the DOM
 class ProjectRenderer {
+
   displayProject(project) {
 
     //Creates project container element, something like: <li class="project-container" data-project-name="****"> </li>
@@ -30,8 +31,12 @@ class ProjectRenderer {
     projectContainer.appendChild(deleteBtn);
 
     // append project container to main project list in DOM
-    const projectList = document.querySelector("#project-list");
-    projectList.appendChild(projectContainer);
+    const projectList = document.getElementById("project-list");
+    if (!projectList) {
+      console.warn("Project list not found in DOM");
+      return;
+    }
+    projectList.appendChild(projectContainer);    
   }
 
   removeProjectById(projectId) {
