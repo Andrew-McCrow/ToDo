@@ -119,12 +119,69 @@ class ProjectEventListeners {
     });
   }
 
+
+  cancelCreateProjectListener() {
+    const cancelCreateProjectBtn = document.getElementById("cancel-project-button-modal");
+    if (!cancelCreateProjectBtn) {
+      console.warn("Cancel create project button not found");
+      return;
+    }
+
+    cancelCreateProjectBtn.addEventListener("click", () => {
+      console.log("Cancel create project button clicked");
+      const modal = document.getElementById("new-project-modal");
+      if (modal) {
+        modal.close();
+      } else {
+        console.warn("New project modal not found");
+      } 
+    });
+  }
+
+  cancelEditProjectListener() {
+    const cancelEditProjectBtn = document.getElementById("cancel-edit-project-button-modal");
+    if (!cancelEditProjectBtn) {
+      console.warn("Cancel edit project button not found");
+      return;
+    }
+
+    cancelEditProjectBtn.addEventListener("click", () => {
+      console.log("Cancel edit project button clicked");
+      const modal = document.getElementById("edit-project-modal");
+      if (modal) {
+        modal.close();
+      } else {
+        console.warn("Edit project modal not found");
+      } 
+    });
+  }
+
+  cancelDeleteProjectListener() {
+    const cancelDeleteProjectBtn = document.getElementById("cancel-delete-project-button");
+    if (!cancelDeleteProjectBtn) {
+      console.warn("Cancel delete project button not found");
+      return;
+    }
+
+    cancelDeleteProjectBtn.addEventListener("click", () => {
+      console.log("Cancel delete project button clicked");
+      const modal = document.getElementById("confirm-delete-project-modal");
+      if (modal) {
+        modal.close();
+      } else {
+        console.warn("Confirm delete project modal not found");
+      } 
+    });
+  }
+
   init() {
     this.createProjectEventListener();
     this.editProjectEventListener();
     this.deleteProjectEventListener();
-  }
-
+    this.cancelCreateProjectListener();
+    this.cancelEditProjectListener();
+    this.cancelDeleteProjectListener();
 }
 
+}
 export default ProjectEventListeners;
