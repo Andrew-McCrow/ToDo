@@ -132,9 +132,15 @@ class ToDoEventListeners {
         projectRenderer.removeToDoItemFromProjectById(toDoItem, oldProjectId);
       }
       
-      // Update or add to new project UI
+      // Handle new project UI
       if (toDoItem.projectId) {
-        projectRenderer.updateToDoItemInProjectById(toDoItem.projectId, toDoId, toDoItem);
+        if (oldProjectId === toDoItem.projectId) {
+          // Same project - just update the existing item
+          projectRenderer.updateToDoItemInProjectById(toDoItem.projectId, toDoId, toDoItem);
+        } else {
+          // Different project (or was None) - add to new project UI
+          projectRenderer.addToDoItemToProjectById(toDoItem, toDoItem.projectId);
+        }
       }
       
       // Clear inputs
