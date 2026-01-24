@@ -69,8 +69,6 @@
             </select>       
         <label for="notes">Notes: </label>
             <textarea id="todo-notes" name="todo-notes"></textarea>
-        <label for="checklist">Checklist</label>
-            <textarea id="todo-checklist" name="todo-checklist" placeholder="Enter checklist items separated by commas"></textarea> 
         <label for="project-assignment">Assign to Project:</label>
             <select id="project-assignment" name="project-assignment">
                 <!-- Project options will be injected here -->
@@ -112,7 +110,7 @@
     <form id="edit-project-form" method="dialog">
         <h2>Edit Project</h2>
         <label for="edit-project-name">Project Name:</label>
-        <input type="text" id="edit-project-name" name="edit-project-name" required> 
+        <input type="text" id="edit-project-name" name="edit-project-name" placeholder="" required> 
         <div class="modal-actions">
             <button type="button" id="save-project-button-modal">Save Changes</button>
             <button type="button" id="cancel-edit-project-button-modal">Cancel</button>
@@ -139,8 +137,6 @@
             </select>       
         <label for="edit-notes">Notes: </label>
             <textarea id="edit-todo-notes" name="edit-todo-notes"></textarea>
-        <label for="edit-checklist">Checklist</label>
-            <textarea id="edit-todo-checklist" name="edit-todo-checklist" placeholder="Enter checklist items separated by commas"></textarea> 
         <label for="edit-project-assignment">Assign to Project:</label>
             <select id="edit-project-assignment" name="edit-project-assignment">
                 <!-- Project options will be injected here -->

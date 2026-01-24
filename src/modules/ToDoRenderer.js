@@ -37,18 +37,6 @@ class ToDoItemRenderer {
       const notes = document.createElement("p");
       notes.textContent = `Notes: ${toDoItem.notes}`;
       itemContainer.appendChild(notes);  
-
-      // create checklist element
-      const checkListTitle = document.createElement("p");
-      checkListTitle.textContent = "Checklist:";
-      itemContainer.appendChild(checkListTitle);
-      const checklist = document.createElement("ul");
-      toDoItem.checklist.forEach((checkItem) => {
-        const listItem = document.createElement("li");
-        listItem.textContent = `${checkItem.item} - ${checkItem.completed ? "Completed" : "Pending"}`;
-        checklist.appendChild(listItem);
-      });
-      itemContainer.appendChild(checklist);
     
       // create project assignment element
       const toDoProject = document.createElement("p");

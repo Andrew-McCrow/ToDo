@@ -5,14 +5,13 @@ const getTodayDate = () => new Date().toISOString().split('T')[0];
 class ToDoItem {
   static nextId = 1;
   
-  constructor(name, description, dueDate = getTodayDate(), priority, notes = [], checklist = [], projectId = null) {
+  constructor(name, description, dueDate = getTodayDate(), priority, notes, projectId = null) {
     this.toDoId = String(ToDoItem.nextId++);
     this.name = name;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
     this.notes = notes;
-    this.checklist = checklist;
     this.projectId = projectId;
 
     this.isCompleted = false;
@@ -20,20 +19,6 @@ class ToDoItem {
 
   toggleCompletion() {
     this.isCompleted = !this.isCompleted;
-  }
-
-  addNote(note) {
-    this.notes.push(note);
-  }
-
-  addChecklistItem(item) {
-    this.checklist.push({ item: item, completed: false });
-  }
-
-  markChecklistItemCompleted(index) {
-    if (this.checklist[index]) {
-      this.checklist[index].completed = true;
-    }
   }
 
   // Check if this to-do item belongs to a specific project (returns boolean)

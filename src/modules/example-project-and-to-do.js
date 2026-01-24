@@ -12,17 +12,11 @@ function ExampleProjectAndToDo() {
       "Milk, Bread, Eggs",
       "2024-07-01",
       "High",
-      [],
-      [],
+      "Remember to check for discounts.",
       exampleProject.projectId
     );
-    // Add example to-do to example project & add some info to the to-do
+    // Add example to-do to example project
     exampleProject.addToDoItem(exampleToDoItem);
-    exampleToDoItem.addNote("Remember to check for discounts.");
-    exampleToDoItem.addChecklistItem("Buy Milk");
-    exampleToDoItem.addChecklistItem("Buy Bread");
-    exampleToDoItem.addChecklistItem("Buy Eggs");
-    exampleToDoItem.markChecklistItemCompleted(0);
 
     // Add example project & to-do item to global lists
     data.addProject(exampleProject);
