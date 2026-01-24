@@ -24,6 +24,7 @@ class ProjectRenderer {
     const toDoList = document.createElement("ul");
     project.toDoItems.forEach((item) => {
       const listItem = document.createElement("li");
+      listItem.dataset.toDoId = item.toDoId;
       listItem.textContent = item.name;
       toDoList.appendChild(listItem);
     });
@@ -76,6 +77,7 @@ addToDoItemToProjectById(toDoItem, projectId) {
     if (container.dataset.projectId === projectId) {
       const projectToDoList = container.querySelector("ul");
       const projectListItem = document.createElement("li");
+      projectListItem.dataset.toDoId = toDoItem.toDoId;
       projectListItem.textContent = toDoItem.name;
       projectToDoList.appendChild(projectListItem);
     }
@@ -96,6 +98,22 @@ removeToDoItemFromProjectById(toDoItem, projectId) {
     }
   });
 }
+
+updateToDoItemInProjectById(projectId, oldToDoId, newToDoItem) {
+  const projectContainers = document.querySelectorAll("li.project-container");
+  projectContainers.forEach((container) => {
+    if (container.dataset.projectId === projectId) {
+      const projectToDoList = container.querySelector("ul");
+      const listItems = projectToDoList.querySelectorAll("li");
+      listItems.forEach((listItem) => {
+        if (listItem.dataset.toDoId === oldToDoId) {
+          listItem.textContent = newToDoItem.name;
+        }
+      });
+    }
+  });
+}
+  
 
   selectedProject(project) {
     project.classList.add("selected");

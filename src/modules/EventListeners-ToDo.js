@@ -1,6 +1,7 @@
 import data from "./data.js";
 import ToDoItem from "./ToDoItem.js";
 import { ToDoItemRenderer } from "./ToDoRenderer.js";
+import { ProjectRenderer } from "./ProjectRenderer.js";
 
 class ToDoEventListeners {
 
@@ -9,9 +10,7 @@ class ToDoEventListeners {
     this.editToDoModal = document.getElementById("edit-to-do-modal");
   }
 
-
-
-
+  
   confirmEditToDoItemListener() {
   const saveToDoBtn = document.getElementById("save-todo-item-button-modal");
   if (!saveToDoBtn) {
@@ -45,8 +44,6 @@ class ToDoEventListeners {
     const updatedPriority = editToDoPriorityInput.value;
     const updatedNotes = editNotesInput?.value || "";
     const updatedProjectId = editAssignedProjectInput.value; 
-    console.log("📋 Raw dropdown value:", updatedProjectId);
-    console.log("📋 Type of value:", typeof updatedProjectId);
 
     if (updatedName === "") {
       alert("To-Do name cannot be empty");
@@ -65,11 +62,16 @@ class ToDoEventListeners {
     toDoItem.dueDate = updatedDueDate;
     toDoItem.notes = updatedNotes;
     toDoItem.projectId = updatedProjectId || null;
-    console.log("💾 Saving projectId as:", toDoItem.projectId);
 
     // Update DOM
     const toDoRenderer = new ToDoItemRenderer();
     toDoRenderer.updateToDoItemById(toDoId, toDoItem);
+    
+    // Update project UI if to-do belongs to a project
+    if (toDoItem.projectId) {
+      const projectRenderer = new ProjectRenderer();
+      projectRenderer.updateToDoItemInProjectById(toDoItem.projectId, toDoId, toDoItem);
+    }
     
     // Clear inputs
     editToDoNameInput.value = "";
