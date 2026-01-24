@@ -3,6 +3,24 @@ import data from "./data.js";
 
 class Modals {
 
+    // Helper method to add project options to project assignment select elements
+    addProjectOptionsToSelectElements(selectElementId) {
+        const projectSelect = document.getElementById(selectElementId);
+        if (!projectSelect) {
+            console.warn("Project assignment select element not found");
+            return;
+        }
+        // Clear existing options
+        projectSelect.innerHTML = '<option value="">None</option>';
+        data.getProjects().forEach((project) => {
+            const option = document.createElement("option");
+            option.value = project.projectId;
+            option.textContent = project.name;
+            projectSelect.appendChild(option);
+        });
+    }
+    
+
     // Helper method to pre-fill edit modal form inputs
     prefillModalInput(inputId, value) {
     const inputElement = document.getElementById(inputId);
@@ -43,19 +61,7 @@ class Modals {
             return;
         }
         // Add project options to the project assignment select element
-        const projectSelect = document.getElementById("project-assignment");
-        if (!projectSelect) {
-            console.warn("Project assignment select element not found");
-            return;
-        }
-        // Clear existing options
-        projectSelect.innerHTML = '<option value="">None</option>';
-        data.getProjects().forEach((project) => {
-            const option = document.createElement("option");
-            option.value = project.projectId;
-            option.textContent = project.name;
-            projectSelect.appendChild(option);
-        });
+        this.addProjectOptionsToSelectElements("project-assignment");
 
         modal.showModal();
     }
@@ -113,8 +119,9 @@ class Modals {
         this.prefillModalInput("edit-todo-due-date", toDoItem.dueDate);
         this.prefillModalInput("edit-todo-priority", toDoItem.priority?.toLowerCase()); // Select element
         this.prefillModalInput("edit-todo-notes", toDoItem.notes);
-        this.prefillModalInput("edit-project-assignment", toDoItem.projectId); // Select element
-       
+        this.addProjectOptionsToSelectElements("edit-project-assignment");
+        // select the correct project option after adding options
+        this.prefillModalInput("edit-project-assignment", toDoItem.projectId);
         modal.showModal();
     }
 
