@@ -14,7 +14,7 @@ class ToDoItemRenderer {
       itemName.textContent = toDoItem.name;
       itemContainer.appendChild(itemName);
 
-      // create other to-do item details element
+      // create to-do item description element
       const itemDescription = document.createElement("p");
       itemDescription.textContent = toDoItem.description;
       itemContainer.appendChild(itemDescription);
@@ -61,6 +61,40 @@ class ToDoItemRenderer {
       const itemList = document.querySelector("#todo-list");
       itemList.appendChild(itemContainer);
     }
+
+    updateToDoItemById(toDoId, updatedToDoItem) {
+      const toDoContainers = document.querySelectorAll("li.todo-item-container");
+      toDoContainers.forEach((container) => {
+        if (container.dataset.toDoId === toDoId) {
+          // Update name
+          const itemNameElement = container.querySelector("h3");
+          itemNameElement.textContent = updatedToDoItem.name;
+          // Update description
+          const itemDescriptionElement = container.querySelector("p:nth-of-type(1)");
+          itemDescriptionElement.textContent = updatedToDoItem.description;
+          // Update due date
+          const itemDueDateElement = container.querySelector("p:nth-of-type(2)");
+          if (updatedToDoItem.dueDate) {
+            itemDueDateElement.textContent = `Due Date: ${format(new Date(updatedToDoItem.dueDate), 'MMM dd, yyyy')}`;
+          } else {
+            itemDueDateElement.textContent = `Due Date: Not set`;
+          }
+          // Update priority
+          const itemPriorityElement = container.querySelector("p:nth-of-type(3)");
+          itemPriorityElement.textContent = `Priority: ${updatedToDoItem.priority}`;
+          // Update notes
+          const notesElement = container.querySelector("p:nth-of-type(4)");
+          notesElement.textContent = `Notes: ${updatedToDoItem.notes}`;
+          // Update project assignment with null check
+          const toDoProjectElement = container.querySelector("p:nth-of-type(5)");
+          const projectName = updatedToDoItem.projectId 
+            ? data.getProjectById(updatedToDoItem.projectId)?.name || "None" 
+            : "None";
+          toDoProjectElement.textContent = `Project: ${projectName}`;
+        }
+      });
+    }
+
 
     removeToDoItemById(toDoId) {
       const toDoContainers = document.querySelectorAll("li.todo-item-container");

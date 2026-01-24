@@ -1,5 +1,6 @@
 import data from "./data.js";
-import { ToDoRenderer } from "./ToDoRenderer.js";
+import ToDoItem from "./ToDoItem.js";
+import { ToDoItemRenderer } from "./ToDoRenderer.js";
 
 class ToDoEventListeners {
 
@@ -7,6 +8,81 @@ class ToDoEventListeners {
     this.toDoList = document.querySelector("#to-do-list");
     this.editToDoModal = document.getElementById("edit-to-do-modal");
   }
+
+
+
+
+  confirmEditToDoItemListener() {
+  const saveToDoBtn = document.getElementById("save-todo-item-button-modal");
+  if (!saveToDoBtn) {
+    console.warn("Save to-do item button not found");
+    return;
+  }
+  
+  saveToDoBtn.addEventListener("click", () => {
+    console.log("Save to-do item button clicked");
+    
+    const modal = document.getElementById("edit-todo-modal");
+    if (!modal || !modal.dataset.toDoId) {
+      console.warn("To-Do ID not found");
+      return;
+    }
+    // Get toDoId from modal dataset
+    const toDoId = modal.dataset.toDoId;
+    
+    // Get input DOM elements
+    const editToDoNameInput = document.getElementById("edit-todo-name");
+    const editToDoDescriptionInput = document.getElementById("edit-todo-description");
+    const editDueDateInput = document.getElementById("edit-todo-due-date");
+    const editToDoPriorityInput = document.getElementById("edit-todo-priority");
+    const editNotesInput = document.getElementById("edit-todo-notes");
+    const editAssignedProjectInput = document.getElementById("edit-project-assignment");
+
+    // Validate inputs & clean up values
+    const updatedName = editToDoNameInput.value.trim();
+    const updatedDescription = editToDoDescriptionInput?.value || "";
+    const updatedDueDate = editDueDateInput?.value || "";
+    const updatedPriority = editToDoPriorityInput.value;
+    const updatedNotes = editNotesInput?.value || "";
+    const updatedProjectId = editAssignedProjectInput.value; 
+    console.log("📋 Raw dropdown value:", updatedProjectId);
+    console.log("📋 Type of value:", typeof updatedProjectId);
+
+    if (updatedName === "") {
+      alert("To-Do name cannot be empty");
+      return;
+    }
+    
+    // Update in data
+    const toDoItem = data.getToDoItemById(toDoId);
+    if (!toDoItem) {
+      console.warn("To-Do item not found");
+      return;
+    }
+    toDoItem.name = updatedName;
+    toDoItem.description = updatedDescription;
+    toDoItem.priority = updatedPriority;
+    toDoItem.dueDate = updatedDueDate;
+    toDoItem.notes = updatedNotes;
+    toDoItem.projectId = updatedProjectId || null;
+    console.log("💾 Saving projectId as:", toDoItem.projectId);
+
+    // Update DOM
+    const toDoRenderer = new ToDoItemRenderer();
+    toDoRenderer.updateToDoItemById(toDoId, toDoItem);
+    
+    // Clear inputs
+    editToDoNameInput.value = "";
+    if (editToDoDescriptionInput) editToDoDescriptionInput.value = "";
+    if (editToDoPriorityInput) editToDoPriorityInput.value = "medium";
+    if (editDueDateInput) editDueDateInput.value = "";
+    if (editNotesInput) editNotesInput.value = "";
+    if (editAssignedProjectInput) editAssignedProjectInput.value = "";
+    // Close modal
+    modal.close();
+  });
+}
+
 
   cancelCreateToDoListener() {
     const cancelCreateToDoBtn = document.getElementById("cancel-todo-button-modal");
@@ -60,6 +136,7 @@ class ToDoEventListeners {
     this.cancelCreateToDoListener();
     this.cancelEditToDoListener();
     this.cancelDeleteToDoListener();
+    this.confirmEditToDoItemListener();
   }
 
 }

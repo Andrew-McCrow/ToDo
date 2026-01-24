@@ -19,7 +19,6 @@ class Modals {
             projectSelect.appendChild(option);
         });
     }
-    
 
     // Helper method to pre-fill edit modal form inputs
     prefillModalInput(inputId, value) {
@@ -34,11 +33,6 @@ class Modals {
         const valueStr = String(value || "").trim();
         inputElement.value = valueStr;
         console.log(`Set ${inputId} to: ${valueStr}`); // Debug log
-        return;
-    }
-    // For arrays (notes, checklist), convert to string
-    if (Array.isArray(value)) {
-        inputElement.value = value.join(", ") || "";
         return;
     }
     // For text inputs, textareas, date inputs, etc.
@@ -117,10 +111,10 @@ class Modals {
         this.prefillModalInput("edit-todo-name", toDoItem.name);
         this.prefillModalInput("edit-todo-description", toDoItem.description);
         this.prefillModalInput("edit-todo-due-date", toDoItem.dueDate);
-        this.prefillModalInput("edit-todo-priority", toDoItem.priority?.toLowerCase()); // Select element
+        this.prefillModalInput("edit-todo-priority", toDoItem.priority); // Select element
         this.prefillModalInput("edit-todo-notes", toDoItem.notes);
+        // add project options to select element and prefill
         this.addProjectOptionsToSelectElements("edit-project-assignment");
-        // select the correct project option after adding options
         this.prefillModalInput("edit-project-assignment", toDoItem.projectId);
         modal.showModal();
     }
