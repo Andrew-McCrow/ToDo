@@ -95,6 +95,17 @@ class ToDoItemRenderer {
       });
     }
 
+    updateProjectNameInToDoItemsByProjectId(projectId, newProjectName) {
+      const toDoContainers = document.querySelectorAll("li.todo-item-container");
+      toDoContainers.forEach((container) => {
+        const toDoId = container.dataset.toDoId;
+        const toDoItem = data.getToDoItemById(toDoId);
+        if (toDoItem && toDoItem.projectId === projectId) {
+          const toDoProjectElement = container.querySelector("p:nth-of-type(5)");
+          toDoProjectElement.textContent = `Project: ${newProjectName}`;
+        }
+      });
+    } 
 
     removeToDoItemById(toDoId) {
       const toDoContainers = document.querySelectorAll("li.todo-item-container");

@@ -113,7 +113,6 @@ updateToDoItemInProjectById(projectId, oldToDoId, newToDoItem) {
     }
   });
 }
-  
 
   selectedProject(project) {
     project.classList.add("selected");

@@ -1,6 +1,7 @@
 import data from "./data.js";
 import Project from "./Project.js";
 import { ProjectRenderer } from "./ProjectRenderer.js";
+import { ToDoItemRenderer } from "./ToDoRenderer.js";
 
 class ProjectEventListeners {
 
@@ -83,6 +84,8 @@ class ProjectEventListeners {
       // Update project in DOM
       const projectRenderer = new ProjectRenderer();
       projectRenderer.updateProjectNameById(projectId, updatedName);
+      const projectToDoRenderer = new ToDoItemRenderer();
+      projectToDoRenderer.updateProjectNameInToDoItemsByProjectId(projectId, updatedName);
       
       // Clear input field
       editProjectNameInput.value = "";
