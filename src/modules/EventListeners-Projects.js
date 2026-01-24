@@ -1,4 +1,5 @@
 import data from "./data.js";
+import Project from "./Project.js";
 import { ProjectRenderer } from "./ProjectRenderer.js";
 
 class ProjectEventListeners {

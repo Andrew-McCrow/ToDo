@@ -42,6 +42,21 @@ class Modals {
             console.warn("To-Do modal not found in DOM");
             return;
         }
+        // Add project options to the project assignment select element
+        const projectSelect = document.getElementById("project-assignment");
+        if (!projectSelect) {
+            console.warn("Project assignment select element not found");
+            return;
+        }
+        // Clear existing options
+        projectSelect.innerHTML = '<option value="">None</option>';
+        data.getProjects().forEach((project) => {
+            const option = document.createElement("option");
+            option.value = project.projectId;
+            option.textContent = project.name;
+            projectSelect.appendChild(option);
+        });
+
         modal.showModal();
     }
 
