@@ -10,6 +10,65 @@ class ToDoEventListeners {
     this.editToDoModal = document.getElementById("edit-to-do-modal");
   }
 
+  createToDoItemListener() {
+    const createToDoBtn = document.getElementById("add-todo-item-button-modal");
+    if (createToDoBtn) {
+      createToDoBtn.addEventListener("click", () => {
+        console.log("Create To-Do Item button clicked");
+        const toDoNameInput = document.getElementById("todo-name");
+        if (!toDoNameInput) {
+          console.warn("To-Do name input not found");
+          return;
+        }
+        const toDoName = toDoNameInput.value.trim();
+        if (toDoName === "") {
+          alert("To-Do name cannot be empty");
+          return;
+        }
+        const toDoDescriptionInput = document.getElementById("todo-description");
+        const toDoDescription = toDoDescriptionInput ? toDoDescriptionInput.value.trim() : ""; 
+        const toDoDueDateInput = document.getElementById("todo-due-date");
+        const toDoDueDate = toDoDueDateInput ? toDoDueDateInput.value : ""; 
+        const toDoPriorityInput = document.getElementById("todo-priority");
+        const toDoPriority = toDoPriorityInput ? toDoPriorityInput.value : "Medium"; 
+        const toDoNotesInput = document.getElementById("todo-notes");
+        const toDoNotes = toDoNotesInput ? toDoNotesInput.value.trim() : ""; 
+        const toDoProjectAssignmentInput = document.getElementById("project-assignment");
+        const toDoProjectId = toDoProjectAssignmentInput ? toDoProjectAssignmentInput.value : null;
+        // Create new to-do item and add to data
+        const newToDoItem = new ToDoItem(toDoName, toDoDescription, toDoDueDate, toDoPriority, toDoNotes, toDoProjectId);
+        data.addToDoItem(newToDoItem);
+        // If assigned to a project, add to that project's to-do list
+        if (toDoProjectId) {
+          data.addToDoItemToProjectById(newToDoItem, toDoProjectId);
+        }
+        // Render new to-do item in DOM
+        const toDoRenderer = new ToDoItemRenderer();
+        toDoRenderer.displayToDoItem(newToDoItem);
+        // Also update project UI if assigned to a project
+        if (toDoProjectId) {
+          const projectRenderer = new ProjectRenderer();
+          projectRenderer.addToDoItemToProjectById(newToDoItem, toDoProjectId);
+        }
+        // Clear input fields
+        toDoNameInput.value = "";
+        if (toDoDescriptionInput) toDoDescriptionInput.value = "";
+        if (toDoDueDateInput) toDoDueDateInput.value = "";
+        if (toDoPriorityInput) toDoPriorityInput.value = "Medium";
+        if (toDoNotesInput) toDoNotesInput.value = "";
+        if (toDoProjectAssignmentInput) toDoProjectAssignmentInput.value = "";
+        // Close modal
+        const modal = document.getElementById("new-todo-modal");
+        if (modal) {
+          modal.close();
+        } else {
+          console.warn("New to-do modal not found");
+        } 
+
+      });
+    }
+  }
+
   deleteToDoItemListener() {
     const confirmDeleteToDoBtn = document.getElementById("confirm-delete-todo-button");
     if (!confirmDeleteToDoBtn) {
@@ -210,6 +269,7 @@ class ToDoEventListeners {
     this.cancelDeleteToDoListener();
     this.confirmEditToDoItemListener();
     this.deleteToDoItemListener();
+    this.createToDoItemListener();
   }
 
 }

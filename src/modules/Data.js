@@ -29,6 +29,23 @@ class Data {
         });
     }
 
+    addToDoItemToProjectById(toDoItem, projectId) {
+        const project = this.getProjectById(projectId);
+        if (project) {
+            project.toDoItems.push(toDoItem);
+        } else {
+            console.warn(`Cannot add To-Do Item to non-existent Project ${projectId}`);
+        }
+    }
+    // Clear projectId from all to-do items belonging to a project
+    clearProjectFromToDoItems(projectId) {
+        this.toDoItemList.forEach(item => {
+            if (item.projectId === projectId) {
+                item.projectId = null;
+            }
+        });
+    }
+
     // Todos
     getToDoItems() {
         return this.toDoItemList;

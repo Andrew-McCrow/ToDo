@@ -111,12 +111,24 @@ class ProjectEventListeners {
       }
       const projectId = modal.dataset.projectId;
 
+      // Find all affected to-do items BEFORE deleting project
+      const affectedToDoItems = data.getToDoItems().filter(item => item.projectId === projectId);
+      
+      // Update data: clear projectId from all affected to-do items
+      data.clearProjectFromToDoItems(projectId);
+
       // Remove project from data
       data.removeProjectById(projectId);
 
       // Remove project from DOM
       const projectRenderer = new ProjectRenderer();
       projectRenderer.removeProjectById(projectId);
+      
+      // Update affected to-do items in the UI to show "Project: None"
+      const toDoRenderer = new ToDoItemRenderer();
+      affectedToDoItems.forEach(toDoItem => {
+        toDoRenderer.updateToDoItemById(toDoItem.toDoId, toDoItem);
+      });
 
       // Close modal
       modal.close();
