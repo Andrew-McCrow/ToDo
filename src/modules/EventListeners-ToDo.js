@@ -10,7 +10,42 @@ class ToDoEventListeners {
     this.editToDoModal = document.getElementById("edit-to-do-modal");
   }
 
-  
+  deleteToDoItemListener() {
+    const confirmDeleteToDoBtn = document.getElementById("confirm-delete-todo-button");
+    if (!confirmDeleteToDoBtn) {
+      console.warn("Confirm delete to-do button not found");
+      return;
+    }
+    confirmDeleteToDoBtn.addEventListener("click", () => {
+      const modal = document.getElementById("confirm-delete-todo-modal");
+      if (!modal || !modal.dataset.toDoId) {
+        console.warn("To-Do ID not found for deletion");
+        return;
+      }
+      const toDoId = modal.dataset.toDoId;
+      
+      // Get to-do BEFORE deleting it (we need the projectId)
+      const toDoItem = data.getToDoItemById(toDoId);
+      
+      // Remove from data
+      data.removeToDoItemById(toDoId);
+      data.removeToDoItemFromProjectById(toDoId);
+      
+      // Remove to-do from DOM
+      const toDoRenderer = new ToDoItemRenderer();
+      toDoRenderer.removeToDoItemById(toDoId);
+      
+      // Also remove from project UI if it belongs to a project
+      if (toDoItem && toDoItem.projectId) {
+        const projectRenderer = new ProjectRenderer();
+        projectRenderer.removeToDoItemFromProjectById(toDoItem, toDoItem.projectId);
+      }
+      
+      // Close modal
+      modal.close();
+    });
+  }
+
   confirmEditToDoItemListener() {
   const saveToDoBtn = document.getElementById("save-todo-item-button-modal");
   if (!saveToDoBtn) {
@@ -139,6 +174,7 @@ class ToDoEventListeners {
     this.cancelEditToDoListener();
     this.cancelDeleteToDoListener();
     this.confirmEditToDoItemListener();
+    this.deleteToDoItemListener();
   }
 
 }

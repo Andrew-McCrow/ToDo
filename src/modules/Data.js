@@ -23,6 +23,12 @@ class Data {
         return project;
     }
 
+    removeToDoItemFromProjectById(toDoId) {
+        this.projectList.forEach(project => {
+            project.toDoItems = project.toDoItems.filter(item => item.toDoId !== toDoId);
+        });
+    }
+
     // Todos
     getToDoItems() {
         return this.toDoItemList;
