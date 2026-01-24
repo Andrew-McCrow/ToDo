@@ -47,78 +47,107 @@ class ToDoEventListeners {
   }
 
   confirmEditToDoItemListener() {
-  const saveToDoBtn = document.getElementById("save-todo-item-button-modal");
-  if (!saveToDoBtn) {
-    console.warn("Save to-do item button not found");
-    return;
-  }
-  
-  saveToDoBtn.addEventListener("click", () => {
-    console.log("Save to-do item button clicked");
-    
-    const modal = document.getElementById("edit-todo-modal");
-    if (!modal || !modal.dataset.toDoId) {
-      console.warn("To-Do ID not found");
-      return;
-    }
-    // Get toDoId from modal dataset
-    const toDoId = modal.dataset.toDoId;
-    
-    // Get input DOM elements
-    const editToDoNameInput = document.getElementById("edit-todo-name");
-    const editToDoDescriptionInput = document.getElementById("edit-todo-description");
-    const editDueDateInput = document.getElementById("edit-todo-due-date");
-    const editToDoPriorityInput = document.getElementById("edit-todo-priority");
-    const editNotesInput = document.getElementById("edit-todo-notes");
-    const editAssignedProjectInput = document.getElementById("edit-project-assignment");
-
-    // Validate inputs & clean up values
-    const updatedName = editToDoNameInput.value.trim();
-    const updatedDescription = editToDoDescriptionInput?.value || "";
-    const updatedDueDate = editDueDateInput?.value || "";
-    const updatedPriority = editToDoPriorityInput.value;
-    const updatedNotes = editNotesInput?.value || "";
-    const updatedProjectId = editAssignedProjectInput.value; 
-
-    if (updatedName === "") {
-      alert("To-Do name cannot be empty");
+    const saveToDoBtn = document.getElementById("save-todo-item-button-modal");
+    if (!saveToDoBtn) {
+      console.warn("Save to-do item button not found");
       return;
     }
     
-    // Update in data
-    const toDoItem = data.getToDoItemById(toDoId);
-    if (!toDoItem) {
-      console.warn("To-Do item not found");
-      return;
-    }
-    toDoItem.name = updatedName;
-    toDoItem.description = updatedDescription;
-    toDoItem.priority = updatedPriority;
-    toDoItem.dueDate = updatedDueDate;
-    toDoItem.notes = updatedNotes;
-    toDoItem.projectId = updatedProjectId || null;
+    saveToDoBtn.addEventListener("click", () => {
+      console.log("Save to-do item button clicked");
+      
+      const modal = document.getElementById("edit-todo-modal");
+      if (!modal || !modal.dataset.toDoId) {
+        console.warn("To-Do ID not found");
+        return;
+      }
+      // Get toDoId from modal dataset
+      const toDoId = modal.dataset.toDoId;
+      
+      // Get input DOM elements
+      const editToDoNameInput = document.getElementById("edit-todo-name");
+      const editToDoDescriptionInput = document.getElementById("edit-todo-description");
+      const editDueDateInput = document.getElementById("edit-todo-due-date");
+      const editToDoPriorityInput = document.getElementById("edit-todo-priority");
+      const editNotesInput = document.getElementById("edit-todo-notes");
+      const editAssignedProjectInput = document.getElementById("edit-project-assignment");
 
-    // Update DOM
-    const toDoRenderer = new ToDoItemRenderer();
-    toDoRenderer.updateToDoItemById(toDoId, toDoItem);
-    
-    // Update project UI if to-do belongs to a project
-    if (toDoItem.projectId) {
+      // Validate inputs & clean up values
+      const updatedName = editToDoNameInput.value.trim();
+      const updatedDescription = editToDoDescriptionInput?.value || "";
+      const updatedDueDate = editDueDateInput?.value || "";
+      const updatedPriority = editToDoPriorityInput.value;
+      const updatedNotes = editNotesInput?.value || "";
+      const updatedProjectId = editAssignedProjectInput.value; 
+
+      if (updatedName === "") {
+        alert("To-Do name cannot be empty");
+        return;
+      }
+      
+      // Update todo in data
+      const toDoItem = data.getToDoItemById(toDoId);
+      if (!toDoItem) {
+        console.warn("To-Do item not found");
+        return;
+      }
+      
+      // Store old project ID before updating
+      const oldProjectId = toDoItem.projectId;
+      
+      toDoItem.name = updatedName;
+      toDoItem.description = updatedDescription;
+      toDoItem.priority = updatedPriority;
+      toDoItem.dueDate = updatedDueDate;
+      toDoItem.notes = updatedNotes;
+      toDoItem.projectId = updatedProjectId || null;
+      
+      // Handle project changes in data
+      if (updatedProjectId) {
+        // User selected a project
+        const newProject = data.getProjectById(updatedProjectId);
+        if (newProject) {
+          // Remove from old project if it was in one
+          if (oldProjectId && oldProjectId !== updatedProjectId) {
+            data.removeToDoItemFromProjectById(toDoId);
+          }
+          // Add to new project if not already there
+          if (!newProject.toDoItems.find(item => item.toDoId === toDoId)) {
+            newProject.toDoItems.push(toDoItem);
+          }
+        }
+      } else {
+        // User selected "None" - remove from any project
+        data.removeToDoItemFromProjectById(toDoId);
+      }
+
+      // Update DOM
+      const toDoRenderer = new ToDoItemRenderer();
+      toDoRenderer.updateToDoItemById(toDoId, toDoItem);
+      
       const projectRenderer = new ProjectRenderer();
-      projectRenderer.updateToDoItemInProjectById(toDoItem.projectId, toDoId, toDoItem);
-    }
-    
-    // Clear inputs
-    editToDoNameInput.value = "";
-    if (editToDoDescriptionInput) editToDoDescriptionInput.value = "";
-    if (editToDoPriorityInput) editToDoPriorityInput.value = "medium";
-    if (editDueDateInput) editDueDateInput.value = "";
-    if (editNotesInput) editNotesInput.value = "";
-    if (editAssignedProjectInput) editAssignedProjectInput.value = "";
-    // Close modal
-    modal.close();
-  });
-}
+      
+      // Remove from old project UI if needed
+      if (oldProjectId && oldProjectId !== updatedProjectId) {
+        projectRenderer.removeToDoItemFromProjectById(toDoItem, oldProjectId);
+      }
+      
+      // Update or add to new project UI
+      if (toDoItem.projectId) {
+        projectRenderer.updateToDoItemInProjectById(toDoItem.projectId, toDoId, toDoItem);
+      }
+      
+      // Clear inputs
+      editToDoNameInput.value = "";
+      if (editToDoDescriptionInput) editToDoDescriptionInput.value = "";
+      if (editToDoPriorityInput) editToDoPriorityInput.value = "medium";
+      if (editDueDateInput) editDueDateInput.value = "";
+      if (editNotesInput) editNotesInput.value = "";
+      if (editAssignedProjectInput) editAssignedProjectInput.value = "";
+      // Close modal
+      modal.close();
+    });
+  }
 
 
   cancelCreateToDoListener() {
