@@ -4,7 +4,7 @@ class Data {
         this.toDoItemList = [];
     }
 
-    // Projects
+    // Project methods
     getProjects() {
         return this.projectList;
     }
@@ -46,7 +46,7 @@ class Data {
         });
     }
 
-    // Todos
+    // To-Do methods
     getToDoItems() {
         return this.toDoItemList;
     }

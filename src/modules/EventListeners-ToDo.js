@@ -1,5 +1,5 @@
-import data from "./data.js";
-import ToDoItem from "./ToDoItem.js";
+import data from "./config/data.js";
+import ToDoItem from "./models/to-do-item.js";
 import { ToDoItemRenderer } from "./ToDoRenderer.js";
 import { ProjectRenderer } from "./ProjectRenderer.js";
 
@@ -214,59 +214,7 @@ class ToDoEventListeners {
     });
   }
 
-
-  cancelCreateToDoListener() {
-    const cancelCreateToDoBtn = document.getElementById("cancel-todo-button-modal");
-    if (!cancelCreateToDoBtn) {
-      console.warn("Cancel create to-do button not found");
-      return;
-    }
-    cancelCreateToDoBtn.addEventListener("click", () => {
-      const modal = document.getElementById("new-todo-modal");
-      if (modal) {
-        modal.close();
-      } else {
-        console.warn("New to-do modal not found");
-      } 
-    });
-  }
-
-  cancelEditToDoListener() {
-    const cancelEditToDoBtn = document.getElementById("cancel-edit-todo-button-modal");
-    if (!cancelEditToDoBtn) {
-      console.warn("Cancel edit to-do button not found");
-      return;
-    }
-    cancelEditToDoBtn.addEventListener("click", () => {
-      const modal = document.getElementById("edit-todo-modal");
-      if (modal)  {
-        modal.close();
-      } else {
-        console.warn("Edit to-do modal not found");
-      } 
-    });
-  }
-
-  cancelDeleteToDoListener() {
-    const cancelDeleteToDoBtn = document.getElementById("cancel-delete-todo-button");
-    if (!cancelDeleteToDoBtn) {
-      console.warn("Cancel delete to-do button not found");
-      return;
-    }
-    cancelDeleteToDoBtn.addEventListener("click", () => {
-      const modal = document.getElementById("confirm-delete-todo-modal");
-      if (modal) {
-        modal.close();
-      } else {
-        console.warn("Confirm delete to-do modal not found");
-      } 
-    });
-  }
-
   init () {
-    this.cancelCreateToDoListener();
-    this.cancelEditToDoListener();
-    this.cancelDeleteToDoListener();
     this.confirmEditToDoItemListener();
     this.deleteToDoItemListener();
     this.createToDoItemListener();

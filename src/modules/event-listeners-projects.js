@@ -1,5 +1,6 @@
-import data from "./data.js";
-import Project from "./Project.js";
+import data from "./config/data.js";
+import Project from "./models/project.js";
+import { ProjectServices } from "./services/project-services.js";
 import { ProjectRenderer } from "./ProjectRenderer.js";
 import { ToDoItemRenderer } from "./ToDoRenderer.js";
 
@@ -25,12 +26,13 @@ class ProjectEventListeners {
           alert("Project name cannot be empty");
           return;
         }
+  
         // Create new project and add to data
-        const newProject = new Project(projectName);
-        data.addProject(newProject);
+        const newProject = ProjectServices.createProject(projectName);
         // Render new project in DOM
         const projectRenderer = new ProjectRenderer();
         projectRenderer.displayProject(newProject);
+
         // Clear input field
         projectNameInput.value = "";
         // Close modal
@@ -65,7 +67,7 @@ class ProjectEventListeners {
         return;
       }
       
-      // Get projectId from modal dataset and convert to number
+      // Get projectId from modal dataset
       const modal = document.getElementById("edit-project-modal");
       if (!modal || !modal.dataset.projectId) {
         console.warn("Project ID not found");
@@ -73,25 +75,25 @@ class ProjectEventListeners {
       }
       const projectId = modal.dataset.projectId;
       
-      // Update project in data
-      const project = data.getProjectById(projectId);
-      if (!project) {
-        console.warn("Project not found in data");
-        return;
+      // Update project using service
+      try {
+        const project = ProjectServices.updateProject(projectId, updatedName);
+        
+        // Update project in DOM
+        const projectRenderer = new ProjectRenderer();
+        projectRenderer.updateProjectNameById(projectId, project.name);
+        const projectToDoRenderer = new ToDoItemRenderer();
+        projectToDoRenderer.updateProjectNameInToDoItemsByProjectId(projectId, project.name);
+        
+        // Clear input field
+        editProjectNameInput.value = "";
+        
+        // Close modal
+        modal.close();
+      } catch (error) {
+        console.error("Failed to update project:", error);
+        alert(error.message);
       }
-      project.name = updatedName;
-      
-      // Update project in DOM
-      const projectRenderer = new ProjectRenderer();
-      projectRenderer.updateProjectNameById(projectId, updatedName);
-      const projectToDoRenderer = new ToDoItemRenderer();
-      projectToDoRenderer.updateProjectNameInToDoItemsByProjectId(projectId, updatedName);
-      
-      // Clear input field
-      editProjectNameInput.value = "";
-      
-      // Close modal
-      modal.close();
   });
 }
 
@@ -111,14 +113,8 @@ class ProjectEventListeners {
       }
       const projectId = modal.dataset.projectId;
 
-      // Find all affected to-do items BEFORE deleting project
-      const affectedToDoItems = data.getToDoItems().filter(item => item.projectId === projectId);
-      
-      // Update data: clear projectId from all affected to-do items
-      data.clearProjectFromToDoItems(projectId);
-
-      // Remove project from data
-      data.removeProjectById(projectId);
+      // Delete project using service
+      const affectedToDoItems = ProjectServices.deleteProject(projectId);
 
       // Remove project from DOM
       const projectRenderer = new ProjectRenderer();
@@ -135,68 +131,10 @@ class ProjectEventListeners {
     });
   }
 
-
-  cancelCreateProjectListener() {
-    const cancelCreateProjectBtn = document.getElementById("cancel-project-button-modal");
-    if (!cancelCreateProjectBtn) {
-      console.warn("Cancel create project button not found");
-      return;
-    }
-
-    cancelCreateProjectBtn.addEventListener("click", () => {
-      console.log("Cancel create project button clicked");
-      const modal = document.getElementById("new-project-modal");
-      if (modal) {
-        modal.close();
-      } else {
-        console.warn("New project modal not found");
-      } 
-    });
-  }
-
-  cancelEditProjectListener() {
-    const cancelEditProjectBtn = document.getElementById("cancel-edit-project-button-modal");
-    if (!cancelEditProjectBtn) {
-      console.warn("Cancel edit project button not found");
-      return;
-    }
-
-    cancelEditProjectBtn.addEventListener("click", () => {
-      console.log("Cancel edit project button clicked");
-      const modal = document.getElementById("edit-project-modal");
-      if (modal) {
-        modal.close();
-      } else {
-        console.warn("Edit project modal not found");
-      } 
-    });
-  }
-
-  cancelDeleteProjectListener() {
-    const cancelDeleteProjectBtn = document.getElementById("cancel-delete-project-button");
-    if (!cancelDeleteProjectBtn) {
-      console.warn("Cancel delete project button not found");
-      return;
-    }
-
-    cancelDeleteProjectBtn.addEventListener("click", () => {
-      console.log("Cancel delete project button clicked");
-      const modal = document.getElementById("confirm-delete-project-modal");
-      if (modal) {
-        modal.close();
-      } else {
-        console.warn("Confirm delete project modal not found");
-      } 
-    });
-  }
-
   init() {
     this.createProjectEventListener();
     this.editProjectEventListener();
     this.deleteProjectEventListener();
-    this.cancelCreateProjectListener();
-    this.cancelEditProjectListener();
-    this.cancelDeleteProjectListener();
 }
 
 }

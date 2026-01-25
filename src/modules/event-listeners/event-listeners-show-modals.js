@@ -1,4 +1,4 @@
-class ModalEventListeners {
+class EventListenersShowModals {
   constructor(modals) {
     this.modals = modals;
     this.addProjectBtn = document.querySelector("#add-project-button");
@@ -80,4 +80,4 @@ class ModalEventListeners {
 
 }
 
-export default ModalEventListeners;
+export default EventListenersShowModals;

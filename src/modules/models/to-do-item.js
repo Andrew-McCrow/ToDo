@@ -17,7 +17,7 @@ class ToDoItem {
     this.isCompleted = false;
   }  
 
-  toggleCompletion() {
+  toggleToDoItemCompletion() {
     this.isCompleted = !this.isCompleted;
   }
 
