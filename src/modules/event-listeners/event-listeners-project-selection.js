@@ -82,22 +82,12 @@ selectProject() {
     allTodos.forEach((todo) => {
         todo.style.display = "block";
     });
-  }
+  
     const showAllProjectsBtn = document.getElementById("show-all-projects-button");
     if (!showAllProjectsBtn) {
         console.warn("Show All Projects button not found");
         return;
     }
-
-    showAllProjectsBtn.addEventListener("click", () => {
-        // Deselect any selected project
-        const previouslySelected = document.querySelector("li.project-container.selected");
-        if (previouslySelected) {
-            previouslySelected.classList.remove("selected");
-        }
-        data.selectedProjectId = null;
-        console.log("Showing all projects");
-    });
   }
 
 
