@@ -8,8 +8,8 @@ import exampleData from "./modules/config/example-data.js";
 import modals from "./modules/ui/modals.js";
 import EventListenersShowModals from "./modules/event-listeners/event-listeners-show-modals.js";
 import EventListenersCancelModals from "./modules/event-listeners/event-listeners-cancel-modals.js";
-import ProjectEventListeners from "./modules/event-listeners-projects.js";
-import ToDoEventListeners from "./modules/EventListeners-ToDo.js";
+import ProjectEventListeners from "./modules/event-listeners/event-listeners-projects.js";
+import ToDoEventListeners from "./modules/event-listeners-to-do-items.js";
 
 // Instantiate EventListeners
 const modalEventListeners = new EventListenersShowModals(modals);
