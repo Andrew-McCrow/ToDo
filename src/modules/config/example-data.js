@@ -1,8 +1,8 @@
 import Project from "../models/project.js";
 import ToDoItem from "../models/to-do-item.js";
 import data from "./data.js";
-import { ProjectRenderer } from "../ProjectRenderer.js";
-import { ToDoItemRenderer } from "../ToDoRenderer.js";
+import { ProjectRenderer } from "../ui/project-renderer.js";
+import { ToDoItemRenderer } from "../ui/to-do-renderer.js";
 
 function exampleData() {
     // create a new example project and to-do item

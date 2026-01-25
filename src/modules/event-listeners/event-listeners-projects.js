@@ -1,8 +1,8 @@
 import data from "../config/data.js";
 import Project from "../models/project.js";
 import { ProjectServices } from "../services/project-services.js";
-import { ProjectRenderer } from "../ProjectRenderer.js";
-import { ToDoItemRenderer } from "../ToDoRenderer.js";
+import { ProjectRenderer } from "../ui/project-renderer.js";
+import { ToDoItemRenderer } from "../ui/to-do-renderer.js";
 
 class ProjectEventListeners {
 

@@ -2,14 +2,14 @@ import "./styles.css";
 import Project from "./modules/models/project.js";
 import ToDoItem from "./modules/models/to-do-item.js";
 import data from "./modules/config/data.js";
-import { ProjectRenderer } from "./modules/ProjectRenderer.js";
-import { ToDoItemRenderer } from "./modules/ToDoRenderer.js";
+import { ProjectRenderer } from "./modules/ui/project-renderer.js";
+import { ToDoItemRenderer } from "./modules/ui/to-do-renderer.js";
 import exampleData from "./modules/config/example-data.js";
 import modals from "./modules/ui/modals.js";
 import EventListenersShowModals from "./modules/event-listeners/event-listeners-show-modals.js";
 import EventListenersCancelModals from "./modules/event-listeners/event-listeners-cancel-modals.js";
 import ProjectEventListeners from "./modules/event-listeners/event-listeners-projects.js";
-import ToDoEventListeners from "./modules/event-listeners-to-do-items.js";
+import ToDoEventListeners from "./modules/event-listeners/event-listeners-to-do-items.js";
 
 // Instantiate EventListeners
 const modalEventListeners = new EventListenersShowModals(modals);
