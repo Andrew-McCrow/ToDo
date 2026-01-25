@@ -25,6 +25,7 @@ selectProject() {
             clickedProject.classList.remove("selected");
             data.selectedProjectId = null;
             console.log("Deselected project");
+            this.updateTodoHeader("All Projects");
             this.showAllProjects();
             this.showAllTodos();
             return;
@@ -40,6 +41,10 @@ selectProject() {
         clickedProject.classList.add("selected");
         data.selectedProjectId = clickedProject.dataset.projectId;
         console.log(`Selected project ID: ${data.selectedProjectId}`);
+        
+        // Update header with project name
+        const project = data.getProjectById(data.selectedProjectId);
+        this.updateTodoHeader(project ? project.name : "All Projects");
         
         // Filter UI to show only selected project and its todos
         this.filterProjectsById(data.selectedProjectId);
@@ -82,11 +87,12 @@ selectProject() {
     allTodos.forEach((todo) => {
         todo.style.display = "block";
     });
-  
-    const showAllProjectsBtn = document.getElementById("show-all-projects-button");
-    if (!showAllProjectsBtn) {
-        console.warn("Show All Projects button not found");
-        return;
+  }
+
+  updateTodoHeader(projectName) {
+    const todoHeader = document.getElementById("todo-header");
+    if (todoHeader) {
+        todoHeader.textContent = `To-Do Items - ${projectName}`;
     }
   }
 
