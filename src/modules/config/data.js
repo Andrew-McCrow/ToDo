@@ -2,6 +2,7 @@ class Data {
     constructor() {
         this.projectList = [];
         this.toDoItemList = [];
+        this.selectedProjectId = null;
     }
 
     // Project methods

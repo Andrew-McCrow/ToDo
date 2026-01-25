@@ -4,7 +4,7 @@ import { ProjectServices } from "../services/project-services.js";
 import { ProjectRenderer } from "../ui/project-renderer.js";
 import { ToDoItemRenderer } from "../ui/to-do-renderer.js";
 
-class ProjectEventListeners {
+class EventListenersProjects {
 
   constructor() {
     this.projectList = document.querySelector("#project-list");
@@ -138,4 +138,4 @@ class ProjectEventListeners {
 }
 
 }
-export default ProjectEventListeners;
+export default EventListenersProjects;

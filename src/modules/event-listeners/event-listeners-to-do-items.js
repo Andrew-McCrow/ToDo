@@ -2,7 +2,7 @@ import { ToDoServices } from "../services/to-do-services.js";
 import { ToDoItemRenderer } from "../ui/to-do-renderer.js";
 import { ProjectRenderer } from "../ui/project-renderer.js";
 
-class ToDoEventListeners {
+class EventListenersToDoItems {
 
   constructor() {
     this.toDoList = document.querySelector("#to-do-list");
@@ -213,4 +213,4 @@ class ToDoEventListeners {
 
 }
 
-export default ToDoEventListeners;
+export default EventListenersToDoItems;

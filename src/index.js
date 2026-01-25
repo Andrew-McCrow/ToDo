@@ -2,20 +2,20 @@ import "./styles.css";
 import Project from "./modules/models/project.js";
 import ToDoItem from "./modules/models/to-do-item.js";
 import data from "./modules/config/data.js";
-import { ProjectRenderer } from "./modules/ui/project-renderer.js";
-import { ToDoItemRenderer } from "./modules/ui/to-do-renderer.js";
 import exampleData from "./modules/config/example-data.js";
 import modals from "./modules/ui/modals.js";
 import EventListenersShowModals from "./modules/event-listeners/event-listeners-show-modals.js";
 import EventListenersCancelModals from "./modules/event-listeners/event-listeners-cancel-modals.js";
-import ProjectEventListeners from "./modules/event-listeners/event-listeners-projects.js";
-import ToDoEventListeners from "./modules/event-listeners/event-listeners-to-do-items.js";
+import EventListenersProjects from "./modules/event-listeners/event-listeners-projects.js";
+import EventListenersToDoItems from "./modules/event-listeners/event-listeners-to-do-items.js";
+import ProjectSelectionEventListeners from "./modules/event-listeners/event-listeners-project-selection.js";
 
 // Instantiate EventListeners
 const modalEventListeners = new EventListenersShowModals(modals);
 const cancelModalEventListeners = new EventListenersCancelModals(modals);
-const projectEventListeners = new ProjectEventListeners();
-const toDoEventListeners = new ToDoEventListeners();
+const projectEventListeners = new EventListenersProjects();
+const toDoEventListeners = new EventListenersToDoItems();
+const projectSelectionEventListeners = new ProjectSelectionEventListeners();
 
 // Initialize application
 document.addEventListener("DOMContentLoaded", () => {
@@ -28,10 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
   window.Project = Project; // expose Project class to create new projects in console
   window.ToDoItem = ToDoItem; // expose ToDoItem class to create new to-dos in console
 
-  // Initialize event listeners to open all modals.
+  // Initialize event listeners for modals.
   modalEventListeners.init();
-
-  // Initialize event listeners for "Cancel" buttons in all modals
   cancelModalEventListeners.init();
  
   // ******* LOGIC FOR ADDING, EDITING & REMOVING PROJECTS ******* //
@@ -41,6 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // ******* LOGIC FOR ADDING, EDITING & REMOVING TO-DO ITEMS ******* //
 
   toDoEventListeners.init();
+
+  // Initialize event listeners for filtering projects
+
+  projectSelectionEventListeners.init();
 
    
   

@@ -290,13 +290,18 @@ textarea {
 
 /* Selected Project Styles */
 .selected {
-    border-left-color: #03ae39;
-    background-color: #fff8e1;
+    border-left-color: #28a745;
+    background-color: #d4edda;
 }   
 
 .selected h2 {
-    color: #03ae39;
-}       
+    color: #155724;
+}
+
+.selected:hover {
+    background-color: #c3e6cb;
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.25);
+}
 
 /* Edit Button Styles */
 .edit-project-button, .edit-todo-button {
