@@ -1,6 +1,5 @@
 import data from "../config/data.js";
 import { ToDoServices } from "../services/to-do-services.js";
-import { ToDoItemRenderer } from "../ui/to-do-renderer.js";
 import modalHelper from "../ui/modal-helper.js";
 
 class EventListenersFilterToDoItems {

@@ -2,6 +2,7 @@
 
 import  Project  from "../models/project.js";
 import  data  from "../config/data.js";
+import LocalStorage from "../local-storage/local-storage.js";
 
 class ProjectServices {
   static createProject(projectName) {
@@ -11,6 +12,9 @@ class ProjectServices {
     // Create new project and add to data
     const newProject = new Project(projectName.trim());
     data.addProject(newProject);
+    
+    // Save to localStorage
+    LocalStorage.saveToLocalStorage();
 
     return newProject;
   }
@@ -27,6 +31,9 @@ class ProjectServices {
 
     // Update project name
     project.name = updatedName.trim();
+    
+    // Save to localStorage
+    LocalStorage.saveToLocalStorage();
 
     return project;
   }
@@ -44,6 +51,9 @@ class ProjectServices {
 
     // Remove project from data
     data.removeProjectById(projectId);
+    
+    // Save to localStorage
+    LocalStorage.saveToLocalStorage();
 
     // Return affected todos so controller can update their UI
     return affectedToDoItems;

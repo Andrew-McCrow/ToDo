@@ -44,8 +44,7 @@ class Data {
         return toDoItem;
     }
 
-    // To-Do Filter methods (using getter/setters)
-
+    // Filter methods (using getter/setters)
     get getFilterCriteria() {
         return this.filterCriteria;
     }

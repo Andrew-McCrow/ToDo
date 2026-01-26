@@ -3,6 +3,7 @@
 import ToDoItem from "../models/to-do-item.js";
 import data from "../config/data.js";
 import { isToday, isThisWeek, isBefore, startOfDay } from 'date-fns';
+import LocalStorage from "../local-storage/local-storage.js";
 
 class ToDoServices {
   
@@ -35,6 +36,9 @@ class ToDoServices {
         console.warn(`Cannot add To-Do Item to non-existent Project ${projectId}`);
       }
     }
+    
+    // Save to localStorage
+    LocalStorage.saveToLocalStorage();
     
     return newToDoItem;
   }
@@ -86,6 +90,9 @@ class ToDoServices {
       }
     }
     
+    // Save to localStorage
+    LocalStorage.saveToLocalStorage();
+    
     // Return both the updated item and old project ID
     return {
       toDoItem,
@@ -109,6 +116,9 @@ class ToDoServices {
       project.toDoItems = project.toDoItems.filter(item => item.toDoId !== toDoId);
     });
     
+    // Save to localStorage
+    LocalStorage.saveToLocalStorage();
+    
     return toDoItem;
   }
 
@@ -120,6 +130,10 @@ class ToDoServices {
     }
     
     toDoItem.toggleToDoItemCompletion();
+    
+    // Save to localStorage
+    LocalStorage.saveToLocalStorage();
+    
     return toDoItem;
   }
 

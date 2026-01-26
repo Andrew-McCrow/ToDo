@@ -1,6 +1,6 @@
 import data from "../config/data.js";
 
-class ProjectSelectionEventListeners {
+class EventListenersFilterProjects {
 
   constructor() {
     this.projectList = document.querySelector("#project-list");
@@ -127,4 +127,4 @@ selectProject() {
   }
 } 
 
-export default ProjectSelectionEventListeners;
+export default EventListenersFilterProjects;

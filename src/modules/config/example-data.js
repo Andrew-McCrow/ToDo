@@ -18,7 +18,7 @@ function exampleData() {
     // Add example to-do to example project
     exampleProject.addToDoItem(exampleToDoItem);
 
-    // Add example project & to-do item to global lists
+    // Add example project & to-do item to global data store
     data.addProject(exampleProject);
     data.addToDoItem(exampleToDoItem);
 
