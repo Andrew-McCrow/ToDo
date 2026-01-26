@@ -134,7 +134,16 @@ class ToDoServices {
       const matchesPriority = priority === "all" || item.toDoItemByPriority(priority);
       
       // Check project filter
-      const matchesProject = project === "all" || item.toDoItemByProjectId(project);
+      let matchesProject;
+      if (project === "all") {
+        matchesProject = true;
+      } else if (project === "") {
+        // "None" selected - only show todos with no project assigned
+        matchesProject = item.projectId === null || item.projectId === "";
+      } else {
+        // Specific project selected
+        matchesProject = item.toDoItemByProjectId(project);
+      }
       
       // Must match all filters
       return matchesPriority && matchesProject;

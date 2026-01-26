@@ -102,7 +102,12 @@ class EventListenersFilterToDoItems {
                         
                         const todoHeader = document.getElementById("todo-header");
                         if (todoHeader) {
-                            todoHeader.textContent = "To-Do Items - All Projects";
+                            // Update header based on whether "none" or "all" is selected
+                            if (selectedProjectFilter === "") {
+                                todoHeader.textContent = "To-Do Items - No Project Assigned";
+                            } else {
+                                todoHeader.textContent = "To-Do Items - All Projects";
+                            }
                         }
                     }
                 }
