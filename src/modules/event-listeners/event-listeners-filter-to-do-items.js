@@ -28,6 +28,14 @@ class EventListenersFilterToDoItems {
                     dueDate: selectedDateFilter
                 };
 
+                // Add "selected" class to active filter buttons (active state is when filters are applied)
+                const filterButton = document.getElementById("filter-icon");
+                if (selectedPriorityFilter !== "all" || selectedDateFilter !== "all") { 
+                    filterButton.classList.add("selected");
+                } else {
+                    filterButton.classList.remove("selected");  
+}
+
                 // Close modal
                 modal.close();
 
