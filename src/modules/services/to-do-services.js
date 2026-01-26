@@ -123,6 +123,25 @@ class ToDoServices {
     const filteredToDoIds = filteredToDos.map(item => item.toDoId);
     return filteredToDoIds;
   }
+
+  static filterToDos(filters) {
+    const allToDos = data.getToDoItems();
+    const { priority, project } = filters;
+    
+    // Filter by all criteria
+    const filteredToDos = allToDos.filter(item => {
+      // Check priority filter
+      const matchesPriority = priority === "all" || item.toDoItemByPriority(priority);
+      
+      // Check project filter
+      const matchesProject = project === "all" || item.toDoItemByProjectId(project);
+      
+      // Must match all filters
+      return matchesPriority && matchesProject;
+    });
+    
+    return filteredToDos.map(item => item.toDoId);
+  }
   
 }
 

@@ -3,14 +3,18 @@ import data from "../config/data.js";
 class ModalHelper {
 
     // Helper method to add project options to project assignment select elements
-    addProjectOptionsToSelectElements(selectElementId) {
+    addProjectOptionsToSelectElements(selectElementId, includeAllOption = false) {
         const projectSelect = document.getElementById(selectElementId);
         if (!projectSelect) {
             console.warn("Project assignment select element not found");
             return;
         }
-        // Clear existing options
-        projectSelect.innerHTML = '<option value="">None</option>';
+        // Clear existing options and add default option(s)
+        if (includeAllOption) {
+            projectSelect.innerHTML = '<option value="all">All Projects</option><option value="">None</option>';
+        } else {
+            projectSelect.innerHTML = '<option value="">None</option>';
+        }
         data.getProjects().forEach((project) => {
             const option = document.createElement("option");
             option.value = project.projectId;
