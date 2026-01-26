@@ -25,29 +25,6 @@ class Data {
         return project;
     }
 
-    removeToDoItemFromProjectById(toDoId) {
-        this.projectList.forEach(project => {
-            project.toDoItems = project.toDoItems.filter(item => item.toDoId !== toDoId);
-        });
-    }
-
-    addToDoItemToProjectById(toDoItem, projectId) {
-        const project = this.getProjectById(projectId);
-        if (project) {
-            project.toDoItems.push(toDoItem);
-        } else {
-            console.warn(`Cannot add To-Do Item to non-existent Project ${projectId}`);
-        }
-    }
-    // Clear projectId from all to-do items belonging to a project
-    clearProjectFromToDoItems(projectId) {
-        this.toDoItemList.forEach(item => {
-            if (item.projectId === projectId) {
-                item.projectId = null;
-            }
-        });
-    }
-
     // To-Do methods
     getToDoItems() {
         return this.toDoItemList;

@@ -36,7 +36,11 @@ class ProjectServices {
     const affectedToDoItems = data.getToDoItems().filter(item => item.projectId === projectId);
     
     // Update data: clear projectId from all affected to-do items
-    data.clearProjectFromToDoItems(projectId);
+    data.getToDoItems().forEach(item => {
+      if (item.projectId === projectId) {
+        item.projectId = null;
+      }
+    });
 
     // Remove project from data
     data.removeProjectById(projectId);

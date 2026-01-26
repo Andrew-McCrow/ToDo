@@ -2,6 +2,7 @@
 
 import ToDoItem from "../models/to-do-item.js";
 import data from "../config/data.js";
+import { isToday, isThisWeek, isBefore, startOfDay } from 'date-fns';
 
 class ToDoServices {
   
@@ -27,7 +28,12 @@ class ToDoServices {
     
     // If assigned to a project, add to that project's to-do list
     if (projectId) {
-      data.addToDoItemToProjectById(newToDoItem, projectId);
+      const project = data.getProjectById(projectId);
+      if (project) {
+        project.toDoItems.push(newToDoItem);
+      } else {
+        console.warn(`Cannot add To-Do Item to non-existent Project ${projectId}`);
+      }
     }
     
     return newToDoItem;
@@ -62,7 +68,9 @@ class ToDoServices {
       if (newProject) {
         // Remove from old project if it was in a different one
         if (oldProjectId && oldProjectId !== projectId) {
-          data.removeToDoItemFromProjectById(toDoId);
+          data.getProjects().forEach(project => {
+            project.toDoItems = project.toDoItems.filter(item => item.toDoId !== toDoId);
+          });
         }
         // Add to new project if not already there
         if (!newProject.toDoItems.find(item => item.toDoId === toDoId)) {
@@ -72,7 +80,9 @@ class ToDoServices {
     } else {
       // User selected "None" - remove from any project
       if (oldProjectId) {
-        data.removeToDoItemFromProjectById(toDoId);
+        data.getProjects().forEach(project => {
+          project.toDoItems = project.toDoItems.filter(item => item.toDoId !== toDoId);
+        });
       }
     }
     
@@ -93,7 +103,11 @@ class ToDoServices {
     
     // Remove from data
     data.removeToDoItemById(toDoId);
-    data.removeToDoItemFromProjectById(toDoId);
+    
+    // Remove from any project's to-do list
+    data.getProjects().forEach(project => {
+      project.toDoItems = project.toDoItems.filter(item => item.toDoId !== toDoId);
+    });
     
     return toDoItem;
   }
@@ -126,7 +140,7 @@ class ToDoServices {
 
   static filterToDos(filters) {
     const allToDos = data.getToDoItems();
-    const { priority, project } = filters;
+    const { priority, project, dueDate } = filters;
     
     // Filter by all criteria
     const filteredToDos = allToDos.filter(item => {
@@ -145,8 +159,29 @@ class ToDoServices {
         matchesProject = item.toDoItemByProjectId(project);
       }
       
+      // Check due date filter
+      let matchesDueDate = true;
+      if (dueDate && dueDate !== "all" && item.dueDate) {
+        const itemDate = new Date(item.dueDate);
+        const today = startOfDay(new Date());
+        
+        switch (dueDate) {
+          case "overdue":
+            matchesDueDate = isBefore(itemDate, today);
+            break;
+          case "due-today":
+            matchesDueDate = isToday(itemDate);
+            break;
+          case "due-this-week":
+            matchesDueDate = isThisWeek(itemDate, { weekStartsOn: 0 });
+            break;
+          default:
+            matchesDueDate = true;
+        }
+      }
+      
       // Must match all filters
-      return matchesPriority && matchesProject;
+      return matchesPriority && matchesProject && matchesDueDate;
     });
     
     return filteredToDos.map(item => item.toDoId);

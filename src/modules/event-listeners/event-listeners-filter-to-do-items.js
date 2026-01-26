@@ -57,7 +57,8 @@ class EventListenersFilterToDoItems {
                     // Apply filters using ToDoServices
                     const filteredToDoIds = ToDoServices.filterToDos({
                         priority: selectedPriorityFilter,
-                        project: selectedProjectFilter
+                        project: selectedProjectFilter,
+                        dueDate: selectedDateFilter
                     });
 
                     // Hide all todos first
@@ -72,6 +73,15 @@ class EventListenersFilterToDoItems {
                             todoElement.style.display = "block";
                         }
                     }
+                    
+                    // Determine which projects have visible todos
+                    const projectsWithVisibleTodos = new Set();
+                    filteredToDoIds.forEach(toDoId => {
+                        const todoItem = data.getToDoItemById(toDoId);
+                        if (todoItem && todoItem.projectId) {
+                            projectsWithVisibleTodos.add(todoItem.projectId);
+                        }
+                    });
                     
                     // Filter projects if a specific project is selected
                     if (selectedProjectFilter !== "all" && selectedProjectFilter !== "") {
@@ -93,19 +103,32 @@ class EventListenersFilterToDoItems {
                             todoHeader.textContent = `To-Do Items - ${project.name}`;
                         }
                     } else {
-                        // Show all projects if "all" or "none" is selected
-                        allProjectContainers.forEach(project => {
-                            project.style.display = "block";
-                            project.classList.remove("selected");
-                        });
+                        // Handle "all" or "none" filter
                         data.selectedProjectId = null;
                         
                         const todoHeader = document.getElementById("todo-header");
-                        if (todoHeader) {
-                            // Update header based on whether "none" or "all" is selected
-                            if (selectedProjectFilter === "") {
+                        
+                        if (selectedProjectFilter === "") {
+                            // "None" selected - hide all projects
+                            allProjectContainers.forEach(project => {
+                                project.style.display = "none";
+                                project.classList.remove("selected");
+                            });
+                            if (todoHeader) {
                                 todoHeader.textContent = "To-Do Items - No Project Assigned";
-                            } else {
+                            }
+                        } else {
+                            // "All" selected - show only projects with visible todos
+                            allProjectContainers.forEach(project => {
+                                project.classList.remove("selected");
+                                const projectId = project.dataset.projectId;
+                                if (projectsWithVisibleTodos.has(projectId)) {
+                                    project.style.display = "block";
+                                } else {
+                                    project.style.display = "none";
+                                }
+                            });
+                            if (todoHeader) {
                                 todoHeader.textContent = "To-Do Items - All Projects";
                             }
                         }
