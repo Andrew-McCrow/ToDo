@@ -8,6 +8,7 @@ import EventListenersShowModals from "./modules/event-listeners/event-listeners-
 import EventListenersCancelModals from "./modules/event-listeners/event-listeners-cancel-modals.js";
 import EventListenersProjects from "./modules/event-listeners/event-listeners-projects.js";
 import EventListenersToDoItems from "./modules/event-listeners/event-listeners-to-do-items.js";
+import EventListenersFilterToDoItems from "./modules/event-listeners/event-listeners-filter-to-do-items.js";
 import ProjectSelectionEventListeners from "./modules/event-listeners/event-listeners-project-selection.js";
 
 // Instantiate EventListeners
@@ -15,6 +16,7 @@ const modalEventListeners = new EventListenersShowModals(modals);
 const cancelModalEventListeners = new EventListenersCancelModals(modals);
 const projectEventListeners = new EventListenersProjects();
 const toDoEventListeners = new EventListenersToDoItems();
+const filterToDoEventListeners = new EventListenersFilterToDoItems();
 const projectSelectionEventListeners = new ProjectSelectionEventListeners();
 
 // Initialize application
@@ -40,10 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   toDoEventListeners.init();
 
-  // Initialize event listeners for filtering projects
+  // Initialize event listeners for selecting projects
 
   projectSelectionEventListeners.init();
 
-   
+  // Initialize event listeners for filtering to-do items
+
+  filterToDoEventListeners.init();
   
 });

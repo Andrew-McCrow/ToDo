@@ -66,6 +66,17 @@ class Data {
         if (!toDoItem) console.warn(`To-Do Item ${toDoId} not found`);
         return toDoItem;
     }
+
+    // To-Do Filter methods (using getter/setters)
+
+    get getFilterCriteria() {
+        return this.filterCriteria;
+    }
+
+    set setFilterCriteria(criteria) {
+        this.filterCriteria = criteria;
+    }
+
 }
 
 // instantiate global data object
