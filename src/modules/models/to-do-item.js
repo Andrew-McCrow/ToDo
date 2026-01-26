@@ -26,6 +26,14 @@ class ToDoItem {
     return this.projectId === projectId;
   }
 
+  toDoItemByPriority(priority) {
+    return this.priority === priority;
+  }
+
+  toDoItemByDueDate(dueDate) {
+    return this.dueDate === dueDate;
+  }
+
 }
 
 export default ToDoItem;

@@ -108,6 +108,22 @@ class ToDoServices {
     toDoItem.toggleToDoItemCompletion();
     return toDoItem;
   }
+
+  static filterToDosByPriority(criteria) {
+    const allToDos = data.getToDoItems();
+    
+    // If "all" is selected, return all todo IDs
+    if (criteria === "all") {
+      return allToDos.map(item => item.toDoId);
+    }
+    
+    // Otherwise filter by the criteria
+    const filteredToDos = allToDos.filter(item => item.toDoItemByPriority(criteria));
+    // extract just the IDs to return
+    const filteredToDoIds = filteredToDos.map(item => item.toDoId);
+    return filteredToDoIds;
+  }
+  
 }
 
 export { ToDoServices };

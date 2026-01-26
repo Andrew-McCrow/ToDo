@@ -1,4 +1,5 @@
 import data from "../config/data.js";
+import { ToDoServices } from "../services/to-do-services.js";
 import { ToDoItemRenderer } from "../ui/to-do-renderer.js";
 
 class EventListenersFilterToDoItems {
@@ -28,18 +29,42 @@ class EventListenersFilterToDoItems {
                     dueDate: selectedDateFilter
                 };
 
-                // Add "selected" class to active filter buttons (active state is when filters are applied)
+                // Get all todo containers
+                const allTodoContainers = document.querySelectorAll("li.todo-item-container");
+
+                // If "all" is selected, show all todos
+                if (selectedPriorityFilter === "all" && selectedDateFilter === "all") {
+                    allTodoContainers.forEach(todo => {
+                        todo.style.display = "block";
+                    });
+                } else {
+                    // Apply filters using ToDoServices
+                    const filteredToDoIdsByPriority = ToDoServices.filterToDosByPriority(selectedPriorityFilter);
+
+                    // Hide all todos first
+                    allTodoContainers.forEach(todo => {
+                        todo.style.display = "none";
+                    });
+
+                    // Show only filtered todos
+                    for (const toDoId of filteredToDoIdsByPriority) {
+                        const todoElement = document.querySelector(`li.todo-item-container[data-to-do-id="${toDoId}"]`);
+                        if (todoElement) {
+                            todoElement.style.display = "block";
+                        }
+                    }
+                }
+            
+                 // Add "selected" class to active filter buttons (active state is when filters are applied)
                 const filterButton = document.getElementById("filter-icon");
                 if (selectedPriorityFilter !== "all" || selectedDateFilter !== "all") { 
                     filterButton.classList.add("selected");
                 } else {
                     filterButton.classList.remove("selected");  
-}
+                }
 
                 // Close modal
-                modal.close();
-
-                
+                modal.close();    
 
             }   catch (error) {     
                 console.error("Failed to apply filter to-dos:", error);
