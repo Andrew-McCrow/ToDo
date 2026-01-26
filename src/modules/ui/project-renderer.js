@@ -76,6 +76,16 @@ addToDoItemToProjectById(toDoItem, projectId) {
   projectContainers.forEach((container) => {
     if (container.dataset.projectId === projectId) {
       const projectToDoList = container.querySelector("ul");
+      
+      // Check if todo already exists in this project's UI
+      const existingItem = projectToDoList.querySelector(`li[data-to-do-id="${toDoItem.toDoId}"]`);
+      if (existingItem) {
+        // If it exists, just update the text
+        existingItem.textContent = toDoItem.name;
+        return;
+      }
+      
+      // Otherwise, create a new element
       const projectListItem = document.createElement("li");
       projectListItem.dataset.toDoId = toDoItem.toDoId;
       projectListItem.textContent = toDoItem.name;
@@ -91,7 +101,7 @@ removeToDoItemFromProjectById(toDoItem, projectId) {
       const projectToDoList = container.querySelector("ul");
       const listItems = projectToDoList.querySelectorAll("li");
       listItems.forEach((listItem) => {
-        if (listItem.textContent === toDoItem.name) {
+        if (listItem.dataset.toDoId === toDoItem.toDoId) {
           listItem.remove();
         }
       });
