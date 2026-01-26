@@ -72,7 +72,7 @@
         <label for="todo-priority">Priority:</label>
             <select id="todo-priority" name="todo-priority">
                 <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
+                <option value="Medium" selected>Medium</option>
                 <option value="High">High</option>
             </select>       
         <label for="notes">Notes: </label>
@@ -161,6 +161,7 @@
 <dialog id="filter-todo-modal">
     <form id="filter-todo-form" method="dialog">
         <h2>Filter To-Do Items</h2>
+        <button type="button" id="clear-all-filters-button">Clear All Filters</button>
         <label for="filter-priority">Priority:</label>
             <select id="filter-priority" name="filter-priority">
                 <option value="all">All Priorities</option>

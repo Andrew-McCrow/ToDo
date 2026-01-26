@@ -28,6 +28,17 @@ selectProject() {
             this.updateTodoHeader("All Projects");
             this.showAllProjects();
             this.showAllTodos();
+            
+            // Update filter criteria to "all"
+            if (data.filterCriteria) {
+                data.filterCriteria.project = "all";
+            }
+            
+            // Remove selected class from filter icon
+            const filterIcon = document.getElementById("filter-icon");
+            if (filterIcon) {
+                filterIcon.classList.remove("selected");
+            }
             return;
         }
         
@@ -49,6 +60,19 @@ selectProject() {
         // Filter UI to show only selected project and its todos
         this.filterProjectsById(data.selectedProjectId);
         this.filterTodosByProjectId(data.selectedProjectId);
+        
+        // Update filter criteria with selected project
+        if (!data.filterCriteria) {
+            data.filterCriteria = { priority: "all", dueDate: "all", project: data.selectedProjectId };
+        } else {
+            data.filterCriteria.project = data.selectedProjectId;
+        }
+        
+        // Add selected class to filter icon
+        const filterIcon = document.getElementById("filter-icon");
+        if (filterIcon) {
+            filterIcon.classList.add("selected");
+        }
     });
   }
 

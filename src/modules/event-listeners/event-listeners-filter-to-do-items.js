@@ -35,12 +35,24 @@ class EventListenersFilterToDoItems {
 
                 // Get all todo containers
                 const allTodoContainers = document.querySelectorAll("li.todo-item-container");
+                const allProjectContainers = document.querySelectorAll("li.project-container");
 
-                // If "all" is selected for everything, show all todos
+                // If "all" is selected for everything, show all todos and projects
                 if (selectedPriorityFilter === "all" && selectedDateFilter === "all" && selectedProjectFilter === "all") {
                     allTodoContainers.forEach(todo => {
                         todo.style.display = "block";
                     });
+                    allProjectContainers.forEach(project => {
+                        project.style.display = "block";
+                        project.classList.remove("selected");
+                    });
+                    data.selectedProjectId = null;
+                    
+                    // Update header
+                    const todoHeader = document.getElementById("todo-header");
+                    if (todoHeader) {
+                        todoHeader.textContent = "To-Do Items - All Projects";
+                    }
                 } else {
                     // Apply filters using ToDoServices
                     const filteredToDoIds = ToDoServices.filterToDos({
@@ -58,6 +70,39 @@ class EventListenersFilterToDoItems {
                         const todoElement = document.querySelector(`li.todo-item-container[data-to-do-id="${toDoId}"]`);
                         if (todoElement) {
                             todoElement.style.display = "block";
+                        }
+                    }
+                    
+                    // Filter projects if a specific project is selected
+                    if (selectedProjectFilter !== "all" && selectedProjectFilter !== "") {
+                        allProjectContainers.forEach(project => {
+                            project.classList.remove("selected");
+                            if (project.dataset.projectId === selectedProjectFilter) {
+                                project.style.display = "block";
+                                project.classList.add("selected");
+                            } else {
+                                project.style.display = "none";
+                            }
+                        });
+                        data.selectedProjectId = selectedProjectFilter;
+                        
+                        // Update header with project name
+                        const project = data.getProjectById(selectedProjectFilter);
+                        const todoHeader = document.getElementById("todo-header");
+                        if (todoHeader && project) {
+                            todoHeader.textContent = `To-Do Items - ${project.name}`;
+                        }
+                    } else {
+                        // Show all projects if "all" or "none" is selected
+                        allProjectContainers.forEach(project => {
+                            project.style.display = "block";
+                            project.classList.remove("selected");
+                        });
+                        data.selectedProjectId = null;
+                        
+                        const todoHeader = document.getElementById("todo-header");
+                        if (todoHeader) {
+                            todoHeader.textContent = "To-Do Items - All Projects";
                         }
                     }
                 }
@@ -96,9 +141,58 @@ class EventListenersFilterToDoItems {
         }
     }
 
+    clearAllFiltersListener() {
+        const clearAllBtn = document.getElementById("clear-all-filters-button");
+        if (!clearAllBtn) {
+            console.warn("Clear all filters button not found");
+            return;
+        }
+        clearAllBtn.addEventListener("click", () => {
+            // Reset all dropdowns to default
+            document.getElementById("filter-priority").value = "all";
+            document.getElementById("filter-due-date").value = "all";
+            document.getElementById("filter-project").value = "all";
+            
+            // Clear filter criteria in data
+            data.filterCriteria = {
+                priority: "all",
+                dueDate: "all",
+                project: "all"
+            };
+            
+            // Show all todos and projects
+            const allTodoContainers = document.querySelectorAll("li.todo-item-container");
+            const allProjectContainers = document.querySelectorAll("li.project-container");
+            
+            allTodoContainers.forEach(todo => {
+                todo.style.display = "block";
+            });
+            
+            allProjectContainers.forEach(project => {
+                project.style.display = "block";
+                project.classList.remove("selected");
+            });
+            
+            data.selectedProjectId = null;
+            
+            // Update header
+            const todoHeader = document.getElementById("todo-header");
+            if (todoHeader) {
+                todoHeader.textContent = "To-Do Items - All Projects";
+            }
+            
+            // Remove selected class from filter button
+            const filterButton = document.getElementById("filter-icon");
+            if (filterButton) {
+                filterButton.classList.remove("selected");
+            }
+        });
+    }
+
     init() {
         this.applyFilterToDoListener();
         this.populateProjectFilterOptions();
+        this.clearAllFiltersListener();
     }
 }
 export default EventListenersFilterToDoItems;
