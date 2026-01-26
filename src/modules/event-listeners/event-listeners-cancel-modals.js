@@ -108,6 +108,22 @@ class EventListenersCancelModals {
     });
   }
 
+  cancelFilterToDoListener() {
+    const cancelFilterToDoBtn = document.getElementById("cancel-filter-todo-button");
+    if (!cancelFilterToDoBtn) {
+      console.warn("Cancel filter to-do button not found");
+      return;
+    }
+    cancelFilterToDoBtn.addEventListener("click", () => {
+      const modal = document.getElementById("filter-todo-modal");
+      if (modal) {
+        modal.close();
+      } else {
+        console.warn("Filter to-do modal not found");
+      } 
+    });
+  }
+
   init() {
     this.cancelCreateProjectListener();
     this.cancelEditProjectListener();
@@ -115,6 +131,7 @@ class EventListenersCancelModals {
     this.cancelCreateToDoListener();
     this.cancelEditToDoListener();
     this.cancelDeleteToDoListener();
+    this.cancelFilterToDoListener();
 }
 
 }

@@ -69,6 +69,14 @@ class EventListenersShowModals {
     });
   }
 
+  filterToDoListener() {
+    const filterButton = document.querySelector("#filter-icon");
+    if (!filterButton) return;
+    filterButton.addEventListener("click", () => {
+      this.modals.displayFilterToDoModal();
+    });
+  }
+
   init() {
     this.addProjectButtonListener();
     this.addToDoButtonListener();
@@ -76,6 +84,7 @@ class EventListenersShowModals {
     this.deleteToDoItemListener();
     this.editProjectListener();
     this.editToDoItemListener();
+    this.filterToDoListener();
   }
 
 }

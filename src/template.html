@@ -21,7 +21,14 @@
                     </ul>  
                 </div>
                 <div class="todos-panel">
-                    <h2 id="todo-header">To-Do Items - All Projects</h2>
+                    <div class="flex-container">
+                        <div>
+                            <h2 id="todo-header">To-Do Items - All Projects</h2>
+                        </div>
+                        <div>
+                            <img src="./images/filter.png" alt="filter icon" id="filter-icon">
+                        </div>
+                    </div>
                     <button id="add-todo-button">Add To-Do Item</button> 
                     <ul id="todo-list">
                         <!-- To-Do items will be injected here -->
@@ -146,6 +153,31 @@
         <div class="modal-actions">
             <button type="button" id="save-todo-item-button-modal">Save Changes</button>
             <button type="button" id="cancel-edit-todo-button-modal">Cancel</button>
+        </div>
+    </form>
+</dialog>   
+
+<!-- Modal for filtering to-do items -->
+<dialog id="filter-todo-modal">
+    <form id="filter-todo-form" method="dialog">
+        <h2>Filter To-Do Items</h2>
+        <label for="filter-priority">Priority:</label>
+            <select id="filter-priority" name="filter-priority">
+                <option value="all">All Priorities</option>
+                <option value="high-priority">High Priority</option>
+                <option value="medium-priority">Medium Priority</option>
+                <option value="low-priority">Low Priority</option>
+            </select>
+        <label for="filter-due-date">Due Date:</label>
+            <select id="filter-due-date" name="filter-due-date">
+                <option value="all">All Dates</option>
+                <option value="overdue">Overdue</option>
+                <option value="due-today">Due Today</option>
+                <option value="due-this-week">Due This Week</option>
+            </select>
+        <div class="modal-actions">
+            <button type="submit" id="apply-filter-todo-button">Apply Filter</button>
+            <button type="button" id="cancel-filter-todo-button">Cancel</button>
         </div>
     </form>
 </dialog>   

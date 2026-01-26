@@ -344,3 +344,20 @@ textarea {
 .project-container .edit-project-button {
   margin-bottom: 0;
 }
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-container #filter-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.flex-container #filter-icon:hover {
+  opacity: 0.7;
+}

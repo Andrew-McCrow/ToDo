@@ -88,6 +88,15 @@ class Modals {
         modal.showModal();
     }
 
+    displayFilterToDoModal() {
+        const modal = document.getElementById("filter-todo-modal");
+        if (!modal) {
+            console.warn("Filter to-do modal not found in DOM");
+            return;
+        }
+        modal.showModal();
+    }
+
 }   
 
 const modals = new Modals();

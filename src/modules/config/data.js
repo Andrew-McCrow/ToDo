@@ -3,6 +3,7 @@ class Data {
         this.projectList = [];
         this.toDoItemList = [];
         this.selectedProjectId = null;
+        this.filterCriteria = null;
     }
 
     // Project methods
